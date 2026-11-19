@@ -4,12 +4,21 @@
  */
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Trạng thái ứng dụng SPA
+  // Trạng thái ứng dụng SPA & Bộ lọc toàn cục
   const AppRouter = {
     currentView: "home", // "home", "product", "cart", "checkout", "orders"
     currentProductId: "PR001",
     currentOrderQuery: ""
   };
+
+  let isHomeInitialized = false;
+  let catalogCategoryFilter = "ALL";
+  let catalogBrandFilter = "ALL";
+  let catalogPriceFilter = "ALL";
+  let catalogSortFilter = "FEATURED";
+  let currentStatusFilter = "ALL";
+  let searchKeyword = "";
+  let compareList = [];
 
   // Khởi tạo các thành phần chung
   initHeader();
@@ -320,12 +329,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // ==========================================================================
   // 3. VIEW 1: TRANG CHỦ (HOME VIEW)
   // ==========================================================================
-  let isHomeInitialized = false;
-  let catalogCategoryFilter = "ALL";
-  let catalogBrandFilter = "ALL";
-  let catalogPriceFilter = "ALL";
-  let catalogSortFilter = "FEATURED";
-
   function initHomeView() {
     if (!isHomeInitialized) {
       initCountdownTimer();
@@ -393,6 +396,65 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Render Product Card (CellPhoneS Style)
+  function createProductCardHTML(p) {
+    const discount = (p.sale_price && p.sale_price < p.product_listprice)
+      ? Math.round((1 - p.sale_price / p.product_listprice) * 100)
+      : 0;
+    const score = EcomStore.getProductScore(p.product_id);
+    const rating = score ? score.rating_average : (p.product_rating || 5);
+    const smemberPrice = Math.round((p.sale_price || p.product_listprice) * 0.985);
+    const promoNote = p.hot_deal_label
+      ? p.hot_deal_label
+      : "Trả góp 0% • Trợ giá thu cũ 5 triệu";
+
+    return `
+      <div class="product-card" data-id="${p.product_id}">
+        <!-- Badges Top -->
+        <div class="product-badges-top">
+          ${discount > 0 ? `<span class="product-badge-discount">Giảm ${discount}%</span>` : `<span></span>`}
+          <span class="product-badge-installment">Trả góp 0%</span>
+        </div>
+
+        <!-- Product Image -->
+        <div class="product-thumb-wrapper">
+          <img class="product-thumb" src="${p.product_photos_link}" alt="${p.product_name}" loading="lazy">
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info">
+          <h3 class="product-title" title="${p.product_name} - ${p.product_version || ''}">${p.product_name}</h3>
+          
+          <div class="product-price-row">
+            <span class="product-sale-price">${formatVND(p.sale_price || p.product_listprice)}</span>
+            ${p.sale_price && p.sale_price < p.product_listprice ? `<span class="product-list-price">${formatVND(p.product_listprice)}</span>` : ""}
+          </div>
+
+          <div class="product-smember-pill">
+            <span>Giá Smember: <strong>${formatVND(smemberPrice)}</strong></span>
+          </div>
+
+          <div class="product-promo-box" title="${promoNote}">
+            ${promoNote}
+          </div>
+
+          <div class="product-card-footer">
+            <span class="badge-delivery-fast" title="Giao hàng siêu tốc 2 Giờ">
+              <i class="bi bi-truck"></i> 2 Giờ
+            </span>
+            <div class="product-rating-box">
+              <i class="bi bi-star-fill text-warning"></i>
+              <span>${rating}</span>
+            </div>
+            <button class="btn-card-wishlist" title="Thêm vào yêu thích" onclick="event.stopPropagation(); this.querySelector('i').classList.toggle('bi-heart'); this.querySelector('i').classList.toggle('bi-heart-fill'); this.querySelector('i').classList.toggle('text-danger');">
+              <i class="bi bi-heart"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
   function renderHotSaleSection() {
     const container = document.getElementById("hotsaleProductGrid");
     if (!container) return;
@@ -400,35 +462,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const products = EcomStore.getProducts();
     const hotsale = products.filter(p => p.sale_price && p.sale_price < p.product_listprice).slice(0, 4);
 
-    container.innerHTML = hotsale.map(p => {
-      const discount = Math.round((1 - p.sale_price / p.product_listprice) * 100);
-      const score = EcomStore.getProductScore(p.product_id);
-      return `
-        <div class="product-card" data-id="${p.product_id}">
-          <span class="product-badge-discount">-${discount}%</span>
-          <div class="product-img-wrapper">
-            <img src="${p.product_photos_link}" alt="${p.product_name}">
-          </div>
-          <div class="product-info">
-            <h3 class="product-title">${p.product_name}</h3>
-            <div class="product-specs">${p.product_version || "Chính hãng"}</div>
-            <div class="product-price-box">
-              <span class="product-price-sale">${formatVND(p.sale_price)}</span>
-              <span class="product-price-list">${formatVND(p.product_listprice)}</span>
-            </div>
-            <div class="smember-card-perk">
-              <i class="bi bi-gem"></i> Smember giảm thêm đến 1.5%
-            </div>
-            <div class="product-rating">
-              <i class="bi bi-star-fill star-icon"></i>
-              <span class="fw-bold">${score ? score.rating_average : "4.9"}</span>
-              <span class="rating-count">(${score ? score.review_count : "180"})</span>
-            </div>
-          </div>
-        </div>
-      `;
-    }).join("");
-
+    container.innerHTML = hotsale.map(p => createProductCardHTML(p)).join("");
     bindCardClickNavigation(container);
   }
 
@@ -508,35 +542,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    container.innerHTML = list.map(p => {
-      const discount = p.sale_price ? Math.round((1 - p.sale_price / p.product_listprice) * 100) : 0;
-      const score = EcomStore.getProductScore(p.product_id);
-      return `
-        <div class="product-card" data-id="${p.product_id}">
-          ${discount > 0 ? `<span class="product-badge-discount">-${discount}%</span>` : ""}
-          <div class="product-img-wrapper">
-            <img src="${p.product_photos_link}" alt="${p.product_name}">
-          </div>
-          <div class="product-info">
-            <h3 class="product-title">${p.product_name}</h3>
-            <div class="product-specs">${p.product_version || "Phiên bản tiêu chuẩn"}</div>
-            <div class="product-price-box">
-              <span class="product-price-sale">${formatVND(p.sale_price || p.product_listprice)}</span>
-              ${p.sale_price ? `<span class="product-price-list">${formatVND(p.product_listprice)}</span>` : ""}
-            </div>
-            <div class="smember-card-perk">
-              <i class="bi bi-gem"></i> Smember giảm thêm đến 1.5%
-            </div>
-            <div class="product-rating">
-              <i class="bi bi-star-fill star-icon"></i>
-              <span class="fw-bold">${score ? score.rating_average : "4.8"}</span>
-              <span class="rating-count">(${score ? score.review_count : "120"})</span>
-            </div>
-          </div>
-        </div>
-      `;
-    }).join("");
-
+    container.innerHTML = list.map(p => createProductCardHTML(p)).join("");
     bindCardClickNavigation(container);
   }
 
@@ -1191,9 +1197,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // ==========================================================================
   // 7. VIEW 5: TRA CỨU ĐƠN HÀNG (ORDER TRACKING VIEW)
   // ==========================================================================
-  let currentStatusFilter = "ALL";
-  let searchKeyword = "";
-
   function initOrderTrackingView(orderId) {
     if (orderId) {
       searchKeyword = orderId;
@@ -1420,8 +1423,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // ==========================================================================
   // 8. COMPARE FLOATING BAR
   // ==========================================================================
-  let compareList = [];
-
   function initCompareFloatingBar() {
     const bar = document.getElementById("compareFloatingBar");
     const countEl = document.getElementById("compareCount");

@@ -218,11 +218,7 @@ XÁC NHẬN: 16 ENTITY POJO & 4 COMPOSITE KEY HOẠT ĐỘNG HOÀN TOÀN CHUẨN
 Ecommerce-User/
 ├── .gitignore                          # Cấu hình bỏ qua thư mục build (target/)
 ├── README.md                           # Báo cáo kỹ thuật tiêu chuẩn doanh nghiệp
-├── index.html                          # Trang chủ B2C Storefront (Banner, Menu, Hot Sale, Catalog)
-├── product-detail.html                 # Trang xem chi tiết sản phẩm chuyên biệt (PDP, Specs, Reviews NLP, Stock)
-├── cart.html                           # Trang giỏ hàng chuyên biệt (Qty stepper, Voucher, Summary)
-├── checkout.html                       # Trang thanh toán đơn hàng & xuất hóa đơn tiếp nhận
-├── order-tracking.html                 # Trang tra cứu & quản lý hành trình đơn hàng (5-Stage Stepper)
+├── index.html                          # Storefront SPA duy nhất tích hợp 5 phân hệ (Home, PDP, Cart, Checkout, Orders)
 │
 ├── images/                             # Thư viện tài nguyên hình ảnh cục bộ (100% offline, không lỗi link)
 │   ├── hero-banner.jpg                 # Banner chính Đại tiệc mở bán công nghệ 2026
@@ -236,7 +232,7 @@ Ecommerce-User/
 ├── js/
 │   ├── mock-data.js                    # Mock Data chuẩn hóa 16 bảng CSDL EcomFlow & 18 Showroom
 │   ├── store.js                        # State & SessionStorage Virtual Database Engine (Tự xóa khi đóng web)
-│   └── app.js                          # Điều phối điều hướng 5 trang, giỏ hàng, đặt hàng & đánh giá
+│   └── app.js                          # Bộ điều phối SPA Router, chuyển view mượt mà không reload trang
 │
 ├── src/main/java/com/ecomflow/store/
 │   ├── common/

@@ -9,14 +9,14 @@
 const EcomStoreMockData = {
   // 1. Categories (8 ngành hàng công nghệ tiêu biểu)
   categories: [
-    { cate_id: "CG001", cate_name: "Điện thoại & Tablet", icon: "bi-phone", total_products: 48, tag: "Hot Deal" },
-    { cate_id: "CG002", cate_name: "Laptop & MacBook", icon: "bi-laptop", total_products: 36, tag: "Giảm 15%" },
-    { cate_id: "CG003", cate_name: "Âm thanh & Tai nghe", icon: "bi-headphones", total_products: 28, tag: "Chính hãng" },
-    { cate_id: "CG004", cate_name: "Đồng hồ thông minh", icon: "bi-smartwatch", total_products: 22, tag: "Thể thao" },
-    { cate_id: "CG005", cate_name: "Phụ kiện & Cáp sạc", icon: "bi-usb-plug", total_products: 45, tag: "Mua 1 tặng 1" },
-    { cate_id: "CG006", cate_name: "PC & Màn hình", icon: "bi-display", total_products: 26, tag: "Gaming" },
-    { cate_id: "CG007", cate_name: "Nhà thông minh", icon: "bi-house-gear", total_products: 19, tag: "Smarthome" },
-    { cate_id: "CG008", cate_name: "Tivi & Thiết bị số", icon: "bi-tv", total_products: 15, tag: "4K OLED" }
+    { category_id: "CG001", cate_id: "CG001", category_name: "Điện thoại & Tablet", cate_name: "Điện thoại & Tablet", icon: "bi-phone", total_products: 48, tag: "Hot Deal" },
+    { category_id: "CG002", cate_id: "CG002", category_name: "Laptop & MacBook", cate_name: "Laptop & MacBook", icon: "bi-laptop", total_products: 36, tag: "Giảm 15%" },
+    { category_id: "CG003", cate_id: "CG003", category_name: "Âm thanh & Tai nghe", cate_name: "Âm thanh & Tai nghe", icon: "bi-headphones", total_products: 28, tag: "Chính hãng" },
+    { category_id: "CG004", cate_id: "CG004", category_name: "Đồng hồ thông minh", cate_name: "Đồng hồ thông minh", icon: "bi-smartwatch", total_products: 22, tag: "Thể thao" },
+    { category_id: "CG005", cate_id: "CG005", category_name: "Phụ kiện & Cáp sạc", cate_name: "Phụ kiện & Cáp sạc", icon: "bi-usb-plug", total_products: 45, tag: "Mua 1 tặng 1" },
+    { category_id: "CG006", cate_id: "CG006", category_name: "PC & Màn hình", cate_name: "PC & Màn hình", icon: "bi-display", total_products: 26, tag: "Gaming" },
+    { category_id: "CG007", cate_id: "CG007", category_name: "Nhà thông minh", cate_name: "Nhà thông minh", icon: "bi-house-gear", total_products: 19, tag: "Smarthome" },
+    { category_id: "CG008", cate_id: "CG008", category_name: "Tivi & Thiết bị số", cate_name: "Tivi & Thiết bị số", icon: "bi-tv", total_products: 15, tag: "4K OLED" }
   ],
 
   // 2. Brands (12 Thương hiệu công nghệ lớn)

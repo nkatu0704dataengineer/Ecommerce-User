@@ -1,5 +1,5 @@
 /**
- * EcomFlow Store - Customer Storefront Mock Data Engine (CellPhoneS Style)
+ * EcomFlow Store - Customer Storefront Mock Data Engine
  * Tuân thủ chính xác 100% lược đồ 16 bảng CSDL EcomFlow:
  * brands, categories, subsidiaries, employees, customers, products, product_scores,
  * program_sales, product_sales, sub_products, carts, cart_items, orders, order_items,
@@ -7,7 +7,7 @@
  */
 
 const EcomStoreMockData = {
-  // 1. Categories (8 ngành hàng công nghệ chuẩn CellPhoneS)
+  // 1. Categories (8 ngành hàng công nghệ tiêu biểu)
   categories: [
     { cate_id: "CG001", cate_name: "Điện thoại & Tablet", icon: "bi-phone", total_products: 48, tag: "Hot Deal" },
     { cate_id: "CG002", cate_name: "Laptop & MacBook", icon: "bi-laptop", total_products: 36, tag: "Giảm 15%" },
@@ -19,7 +19,7 @@ const EcomStoreMockData = {
     { cate_id: "CG008", cate_name: "Tivi & Thiết bị số", icon: "bi-tv", total_products: 15, tag: "4K OLED" }
   ],
 
-  // 2. Brands (Thương hiệu công nghệ hàng đầu thị trường)
+  // 2. Brands (12 Thương hiệu công nghệ lớn)
   brands: [
     { brand_id: "BR001", brand_name: "Apple", brand_country: "Hoa Kỳ" },
     { brand_id: "BR002", brand_name: "Samsung", brand_country: "Hàn Quốc" },
@@ -35,110 +35,48 @@ const EcomStoreMockData = {
     { brand_id: "BR012", brand_name: "Garmin", brand_country: "Hoa Kỳ" }
   ],
 
-  // 3. Subsidiaries (Mạng lưới Showroom bán lẻ thực tế tại Hà Nội, TP.HCM & Đà Nẵng)
+  // 3. Subsidiaries (Mạng lưới 18 Showroom trên 5 thành phố lớn)
   subsidiaries: [
-    {
-      sub_id: "SB001",
-      sub_name: "EcomFlow Flagship Nguyễn Huệ",
-      sub_city: "TP. Hồ Chí Minh",
-      sub_district: "Quận 1",
-      sub_street: "Số 68 Nguyễn Huệ, P. Bến Nghé",
-      phone_number: "028.3822.1001",
-      establishment_date: "2021-03-15"
-    },
-    {
-      sub_id: "SB002",
-      sub_name: "EcomFlow Cầu Giấy Hub",
-      sub_city: "Hà Nội",
-      sub_district: "Cầu Giấy",
-      sub_street: "Số 182 Xuân Thủy, P. Dịch Vọng Hậu",
-      phone_number: "024.3755.2002",
-      establishment_date: "2021-06-20"
-    },
-    {
-      sub_id: "SB003",
-      sub_name: "EcomFlow Hải Châu Center",
-      sub_city: "Đà Nẵng",
-      sub_district: "Hải Châu",
-      sub_street: "Số 45 Bạch Đằng, P. Thạch Thang",
-      phone_number: "0236.3883.003",
-      establishment_date: "2022-01-10"
-    },
-    {
-      sub_id: "SB004",
-      sub_name: "EcomFlow Vincom Landmark 81",
-      sub_city: "TP. Hồ Chí Minh",
-      sub_district: "Bình Thạnh",
-      sub_street: "Tầng L2 Vincom Landmark 81, 720A Điện Biên Phủ",
-      phone_number: "028.3911.4004",
-      establishment_date: "2022-04-12"
-    },
-    {
-      sub_id: "SB005",
-      sub_name: "EcomFlow Thái Hà Experience",
-      sub_city: "Hà Nội",
-      sub_district: "Đống Đa",
-      sub_street: "Số 98 Thái Hà, P. Trung Liệt",
-      phone_number: "024.3533.1010",
-      establishment_date: "2022-08-01"
-    },
-    {
-      sub_id: "SB006",
-      sub_name: "EcomFlow Vạn Hạnh Mall Hub",
-      sub_city: "TP. Hồ Chí Minh",
-      sub_district: "Quận 10",
-      sub_street: "Số 11 Sư Vạn Hạnh, Phường 12",
-      phone_number: "028.3866.6006",
-      establishment_date: "2022-11-20"
-    },
-    {
-      sub_id: "SB007",
-      sub_name: "EcomFlow Hoàn Kiếm Boutique",
-      sub_city: "Hà Nội",
-      sub_district: "Hoàn Kiếm",
-      sub_street: "Số 12 Tràng Thi, P. Hàng Trống",
-      phone_number: "024.3822.5005",
-      establishment_date: "2023-02-14"
-    },
-    {
-      sub_id: "SB008",
-      sub_name: "EcomFlow Thủ Đức Innovation",
-      sub_city: "TP. Hồ Chí Minh",
-      sub_district: "TP. Thủ Đức",
-      sub_street: "Số 216 Võ Văn Ngân, P. Bình Thọ",
-      phone_number: "028.3722.9009",
-      establishment_date: "2023-05-18"
-    },
-    {
-      sub_id: "SB009",
-      sub_name: "EcomFlow Thanh Khê Store",
-      sub_city: "Đà Nẵng",
-      sub_district: "Thanh Khê",
-      sub_street: "Số 154 Nguyễn Văn Linh, P. Vĩnh Trung",
-      phone_number: "0236.3655.888",
-      establishment_date: "2023-09-09"
-    },
-    {
-      sub_id: "SB010",
-      sub_name: "EcomFlow Hà Đông Mega Store",
-      sub_city: "Hà Nội",
-      sub_district: "Hà Đông",
-      sub_street: "Số 136 Quang Trung, P. Quang Trung",
-      phone_number: "024.3999.6688",
-      establishment_date: "2023-11-25"
-    }
+    // TP. Hồ Chí Minh
+    { sub_id: "SB001", sub_name: "EcomFlow Flagship Nguyễn Huệ", sub_city: "TP. Hồ Chí Minh", sub_district: "Quận 1", sub_street: "Số 68 Nguyễn Huệ, P. Bến Nghé", phone_number: "028.3822.1001", establishment_date: "2021-03-15" },
+    { sub_id: "SB004", sub_name: "EcomFlow Vincom Landmark 81", sub_city: "TP. Hồ Chí Minh", sub_district: "Bình Thạnh", sub_street: "Tầng L2 Vincom Landmark 81, 720A Điện Biên Phủ", phone_number: "028.3911.4004", establishment_date: "2022-04-12" },
+    { sub_id: "SB006", sub_name: "EcomFlow Vạn Hạnh Mall Hub", sub_city: "TP. Hồ Chí Minh", sub_district: "Quận 10", sub_street: "Số 11 Sư Vạn Hạnh, Phường 12", phone_number: "028.3866.6006", establishment_date: "2022-11-20" },
+    { sub_id: "SB008", sub_name: "EcomFlow Thủ Đức Innovation", sub_city: "TP. Hồ Chí Minh", sub_district: "TP. Thủ Đức", sub_street: "Số 216 Võ Văn Ngân, P. Bình Thọ", phone_number: "028.3722.9009", establishment_date: "2023-05-18" },
+    { sub_id: "SB011", sub_name: "EcomFlow Gò Vấp Store", sub_city: "TP. Hồ Chí Minh", sub_district: "Gò Vấp", sub_street: "Số 580 Quang Trung, Phường 11", phone_number: "028.3989.1234", establishment_date: "2023-08-10" },
+    { sub_id: "SB012", sub_name: "EcomFlow Quận 7 Premium", sub_city: "TP. Hồ Chí Minh", sub_district: "Quận 7", sub_street: "Số 320 Nguyễn Thị Thập, P. Tân Quy", phone_number: "028.3775.5678", establishment_date: "2023-10-05" },
+
+    // Hà Nội
+    { sub_id: "SB002", sub_name: "EcomFlow Cầu Giấy Hub", sub_city: "Hà Nội", sub_district: "Cầu Giấy", sub_street: "Số 182 Xuân Thủy, P. Dịch Vọng Hậu", phone_number: "024.3755.2002", establishment_date: "2021-06-20" },
+    { sub_id: "SB005", sub_name: "EcomFlow Thái Hà Experience", sub_city: "Hà Nội", sub_district: "Đống Đa", sub_street: "Số 98 Thái Hà, P. Trung Liệt", phone_number: "024.3533.1010", establishment_date: "2022-08-01" },
+    { sub_id: "SB007", sub_name: "EcomFlow Hoàn Kiếm Boutique", sub_city: "Hà Nội", sub_district: "Hoàn Kiếm", sub_street: "Số 12 Tràng Thi, P. Hàng Trống", phone_number: "024.3822.5005", establishment_date: "2023-02-14" },
+    { sub_id: "SB010", sub_name: "EcomFlow Hà Đông Mega Store", sub_city: "Hà Nội", sub_district: "Hà Đông", sub_street: "Số 136 Quang Trung, P. Quang Trung", phone_number: "024.3999.6688", establishment_date: "2023-11-25" },
+    { sub_id: "SB013", sub_name: "EcomFlow Long Biên Center", sub_city: "Hà Nội", sub_district: "Long Biên", sub_street: "Số 250 Nguyễn Văn Cừ, P. Bồ Đề", phone_number: "024.3872.9900", establishment_date: "2024-01-15" },
+
+    // Đà Nẵng
+    { sub_id: "SB003", sub_name: "EcomFlow Hải Châu Center", sub_city: "Đà Nẵng", sub_district: "Hải Châu", sub_street: "Số 45 Bạch Đằng, P. Thạch Thang", phone_number: "0236.3883.003", establishment_date: "2022-01-10" },
+    { sub_id: "SB009", sub_name: "EcomFlow Thanh Khê Store", sub_city: "Đà Nẵng", sub_district: "Thanh Khê", sub_street: "Số 154 Nguyễn Văn Linh, P. Vĩnh Trung", phone_number: "0236.3655.888", establishment_date: "2023-09-09" },
+    { sub_id: "SB014", sub_name: "EcomFlow Cẩm Lệ Hub", sub_city: "Đà Nẵng", sub_district: "Cẩm Lệ", sub_street: "Số 88 Cách Mạng Tháng 8, P. Khuê Trung", phone_number: "0236.3766.999", establishment_date: "2024-03-20" },
+
+    // Cần Thơ
+    { sub_id: "SB015", sub_name: "EcomFlow Ninh Kiều Mega", sub_city: "Cần Thơ", sub_district: "Ninh Kiều", sub_street: "Số 82 Đường 30 Tháng 4, P. An Phú", phone_number: "0292.3777.007", establishment_date: "2023-04-18" },
+    { sub_id: "SB016", sub_name: "EcomFlow Mậu Thân Hub", sub_city: "Cần Thơ", sub_district: "Ninh Kiều", sub_street: "Số 142 Mậu Thân, P. An Hòa", phone_number: "0292.3888.112", establishment_date: "2024-02-12" },
+
+    // Hải Phòng
+    { sub_id: "SB017", sub_name: "EcomFlow Lạch Tray Store", sub_city: "Hải Phòng", sub_district: "Ngô Quyền", sub_street: "Số 102 Lạch Tray, P. Lạch Tray", phone_number: "0225.3666.888", establishment_date: "2023-07-22" },
+    { sub_id: "SB018", sub_name: "EcomFlow Cầu Đất Center", sub_city: "Hải Phòng", sub_district: "Ngô Quyền", sub_street: "Số 48 Cầu Đất, P. Cầu Đất", phone_number: "0225.3777.999", establishment_date: "2024-04-05" }
   ],
 
-  // 4. Products & ProductScores (18 Sản phẩm công nghệ hot nhất, đầy đủ ảnh chất lượng cao & thông số)
+  // 4. Products & ProductScores (18 Sản phẩm công nghệ hot với ảnh lưu trữ cục bộ)
   products: [
     {
       product_id: "PR001",
       product_name: "iPhone 16 Pro Max",
       product_version: "256GB Titan Sa Mạc",
       versions: ["256GB Titan Sa Mạc", "512GB Titan Tự Nhiên", "1TB Titan Đen"],
+      colors: ["Titan Sa Mạc", "Titan Tự Nhiên", "Titan Trắng", "Titan Đen"],
       brand_id: "BR001",
       category_id: "CG001",
-      product_description: "Siêu phẩm Flagship của Apple với viền Titan Cấp 5 siêu bền, chip Apple A18 Pro 3nm đỉnh cao, phím Camera Control cảm ứng lực mới và thời lượng pin vượt trội 33 giờ xem video liên tục.",
+      product_description: "Siêu phẩm cao cấp nhất của Apple với khung viền Titanium Cấp 5 siêu bền, chip Apple A18 Pro 3nm đỉnh cao, phím Camera Control cảm ứng lực mới và thời lượng pin vượt trội 33 giờ xem video liên tục. Màn hình Super Retina XDR OLED 6.9-inch 120Hz viền mỏng nhất lịch sử.",
       product_status: "ACTIVE",
       product_listprice: 34990000,
       sale_price: 32490000,
@@ -148,19 +86,28 @@ const EcomStoreMockData = {
       product_length_cm: 16.3,
       product_width_cm: 7.76,
       product_height_cm: 0.82,
-      product_photos_link: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80",
+      product_photos_link: "images/products/PR001.jpg",
       is_hot_deal: true,
       hot_deal_label: "GIẢM 2.5 TRIỆU",
-      smember_discount_pct: 1.0
+      smember_discount_pct: 1.0,
+      specs: {
+        "Màn hình": "6.9 inch, Super Retina XDR OLED, 120Hz ProMotion",
+        "Camera sau": "Chính 48MP + Góc siêu rộng 48MP + Tele 5x 12MP",
+        "Camera trước": "12MP TrueDepth, HDR thông minh 5",
+        "Vi xử lý": "Apple A18 Pro 6 lõi (3nm thế hệ 2)",
+        "Bộ nhớ trong": "256GB NVMe",
+        "Pin & Sạc": "Xem video 33h, sạc nhanh MagSafe 25W"
+      }
     },
     {
       product_id: "PR002",
       product_name: "Samsung Galaxy S24 Ultra 5G",
       product_version: "12GB/512GB Xám Titan",
       versions: ["12GB/256GB Xám Titan", "12GB/512GB Đen Titan", "12GB/1TB Vàng Titan"],
+      colors: ["Xám Titan", "Đen Titan", "Tím Titan", "Vàng Titan"],
       brand_id: "BR002",
       category_id: "CG001",
-      product_description: "Đỉnh cao quyền năng Galaxy AI với khung viền Titanium, bút S-Pen tích hợp, màn hình Dynamic AMOLED 2X phẳng 2600 nits và hệ thống Quad Telephoto 200MP zoom quang 100x.",
+      product_description: "Đỉnh cao quyền năng Galaxy AI với khung viền Titanium, bút S-Pen tích hợp, màn hình Dynamic AMOLED 2X phẳng 2600 nits chống chói Corning Gorilla Armor và hệ thống Quad Telephoto 200MP zoom quang 100x siêu sắc nét.",
       product_status: "ACTIVE",
       product_listprice: 33990000,
       sale_price: 29990000,
@@ -170,19 +117,28 @@ const EcomStoreMockData = {
       product_length_cm: 16.23,
       product_width_cm: 7.9,
       product_height_cm: 0.86,
-      product_photos_link: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=600&auto=format&fit=crop&q=80",
+      product_photos_link: "images/products/PR002.jpg",
       is_hot_deal: true,
       hot_deal_label: "SIÊU AI GIẢM 4TR",
-      smember_discount_pct: 1.5
+      smember_discount_pct: 1.5,
+      specs: {
+        "Màn hình": "6.8 inch, Dynamic AMOLED 2X, QHD+ 120Hz 2600 nits",
+        "Camera sau": "200MP + 50MP (5x) + 12MP (Góc rộng) + 10MP (3x)",
+        "Camera trước": "12MP Dual Pixel",
+        "Vi xử lý": "Snapdragon 8 Gen 3 for Galaxy (4nm)",
+        "Bộ nhớ RAM": "12GB LPDDR5X",
+        "Pin & Sạc": "5000 mAh, sạc siêu tốc 45W"
+      }
     },
     {
       product_id: "PR003",
       product_name: "MacBook Air 13 M3",
       product_version: "16GB RAM / 512GB SSD Midnight",
       versions: ["16GB/256GB Midnight", "16GB/512GB Starlight", "24GB/512GB Space Gray"],
+      colors: ["Midnight", "Starlight", "Space Gray", "Silver"],
       brand_id: "BR001",
       category_id: "CG002",
-      product_description: "Mỏng nhẹ khó tin 11.3mm với vi xử lý Apple M3 cực kỳ tiết kiệm điện, hỗ trợ xuất cùng lúc 2 màn hình ngoài khi gập máy và thời lượng pin lên đến 18 giờ làm việc.",
+      product_description: "Mỏng nhẹ khó tin 11.3mm với vi xử lý Apple M3 cực kỳ tiết kiệm điện, hỗ trợ xuất cùng lúc 2 màn hình ngoài khi gập máy và thời lượng pin lên đến 18 giờ làm việc. Lớp hoàn thiện mạ anode chống bám vân tay cao cấp.",
       product_status: "ACTIVE",
       product_listprice: 32990000,
       sale_price: 29490000,
@@ -192,19 +148,27 @@ const EcomStoreMockData = {
       product_length_cm: 30.41,
       product_width_cm: 21.5,
       product_height_cm: 1.13,
-      product_photos_link: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80",
+      product_photos_link: "images/products/PR003.jpg",
       is_hot_deal: true,
       hot_deal_label: "HOT SALE M3",
-      smember_discount_pct: 1.0
+      smember_discount_pct: 1.0,
+      specs: {
+        "Màn hình": "13.6 inch Liquid Retina 500 nits True Tone",
+        "CPU": "Apple M3 8-core CPU (4 hiệu năng cao + 4 tiết kiệm)",
+        "GPU": "10-core GPU hỗ trợ Ray Tracing phần cứng",
+        "RAM / Ổ cứng": "16GB Unified Memory / 512GB SSD PCIe",
+        "Cổng kết nối": "MagSafe 3, 2x Thunderbolt / USB 4, Jack 3.5mm"
+      }
     },
     {
       product_id: "PR004",
       product_name: "ASUS ROG Zephyrus G16 OLED",
       product_version: "Core Ultra 9 / RTX 4070 32GB",
       versions: ["Core Ultra 7 / RTX 4060", "Core Ultra 9 / RTX 4070 32GB"],
+      colors: ["Eclipse Gray", "Platinum White"],
       brand_id: "BR004",
       category_id: "CG002",
-      product_description: "Laptop gaming cao cấp siêu mỏng nhẹ với màn hình ROG Nebula OLED 2.5K 240Hz 0.2ms chuẩn màu DCI-P3 100%, dải đèn Slash Lighting độc bản trên nắp máy CNC.",
+      product_description: "Laptop gaming cao cấp siêu mỏng nhẹ với màn hình ROG Nebula OLED 2.5K 240Hz 0.2ms chuẩn màu DCI-P3 100%, dải đèn Slash Lighting độc bản trên nắp máy CNC nhôm nguyên khối, tản nhiệt buồng hơi Tri-Fan tiên tiến.",
       product_status: "ACTIVE",
       product_listprice: 64990000,
       sale_price: 59990000,
@@ -214,19 +178,27 @@ const EcomStoreMockData = {
       product_length_cm: 35.4,
       product_width_cm: 24.6,
       product_height_cm: 1.49,
-      product_photos_link: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=600&auto=format&fit=crop&q=80",
+      product_photos_link: "images/products/PR004.jpg",
       is_hot_deal: true,
       hot_deal_label: "GAMING PRO",
-      smember_discount_pct: 1.5
+      smember_discount_pct: 1.5,
+      specs: {
+        "Màn hình": "16.0 inch 2.5K OLED 240Hz 0.2ms G-Sync VESA True Black 500",
+        "CPU": "Intel Core Ultra 9 185H (16 nhân, 22 luồng, up to 5.1GHz)",
+        "Card đồ họa": "NVIDIA GeForce RTX 4070 8GB GDDR6 (TGP 105W)",
+        "RAM / SSD": "32GB LPDDR5X 7467MHz / 1TB PCIe 4.0 NVMe",
+        "Pin": "90WHrs 4-cell Li-ion"
+      }
     },
     {
       product_id: "PR005",
       product_name: "Sony WH-1000XM5 Chống Ồn",
       product_version: "Bạc Ánh Kim (Silver)",
       versions: ["Bạc Ánh Kim (Silver)", "Đen Huyền Bí (Black)", "Xanh Khói (Midnight Blue)"],
+      colors: ["Silver", "Black", "Midnight Blue"],
       brand_id: "BR005",
       category_id: "CG003",
-      product_description: "Tai nghe trùm đầu chống ồn không dây đỉnh cao trang bị 2 bộ vi xử lý và 8 micrô khử ồn chủ động thời gian thực, hỗ trợ âm thanh chất lượng cao chuẩn Hi-Res Audio Wireless LDAC.",
+      product_description: "Tai nghe trùm đầu chống ồn không dây đỉnh cao trang bị 2 bộ vi xử lý V1 & QN1 và 8 micrô khử ồn chủ động thời gian thực, hỗ trợ âm thanh chất lượng cao chuẩn Hi-Res Audio Wireless LDAC và pin lên đến 30 giờ.",
       product_status: "ACTIVE",
       product_listprice: 8490000,
       sale_price: 6790000,
@@ -236,19 +208,26 @@ const EcomStoreMockData = {
       product_length_cm: 22.5,
       product_width_cm: 20.0,
       product_height_cm: 7.0,
-      product_photos_link: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80",
+      product_photos_link: "images/products/PR005.jpg",
       is_hot_deal: true,
       hot_deal_label: "GIẢM 20%",
-      smember_discount_pct: 1.0
+      smember_discount_pct: 1.0,
+      specs: {
+        "Driver": "30mm màng sợi carbon composite siêu nhẹ",
+        "Chống ồn": "Auto NC Optimizer với 8 micro kép",
+        "Thời lượng pin": "30 giờ (bật ANC), 40 giờ (tắt ANC)",
+        "Kết nối": "Bluetooth 5.2, Codec LDAC, AAC, SBC, Multi-point"
+      }
     },
     {
       product_id: "PR006",
       product_name: "Apple Watch Ultra 2 GPS + Cellular",
       product_version: "49mm Titanium Dây Vải Alpine",
       versions: ["49mm Dây Alpine Xanh", "49mm Dây Trail Đen", "49mm Dây Ocean Cam"],
+      colors: ["Titan Tự Nhiên"],
       brand_id: "BR001",
       category_id: "CG004",
-      product_description: "Đồng hồ chuyên dụng dành cho thám hiểm và thể thao mạo hiểm với vỏ Titanium siêu bền, màn hình siêu sáng 3000 nits, định vị GPS kép tần số cao và chống nước độ sâu 100m.",
+      product_description: "Đồng hồ chuyên dụng dành cho thám hiểm và thể thao mạo hiểm với vỏ Titanium siêu bền, màn hình siêu sáng 3000 nits, định vị GPS kép tần số cao L1 & L5 và khả năng lặn sâu 40m đạt chuẩn EN13319.",
       product_status: "ACTIVE",
       product_listprice: 21490000,
       sale_price: 19990000,
@@ -258,19 +237,26 @@ const EcomStoreMockData = {
       product_length_cm: 4.9,
       product_width_cm: 4.4,
       product_height_cm: 1.44,
-      product_photos_link: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+      product_photos_link: "images/products/PR006.jpg",
       is_hot_deal: false,
       hot_deal_label: null,
-      smember_discount_pct: 1.0
+      smember_discount_pct: 1.0,
+      specs: {
+        "Khung vỏ": "Titanium cấp hàng không vũ trụ 49mm",
+        "Độ sáng màn hình": "OLED Retina LTPO 3000 nits",
+        "Chống nước": "100m, chứng nhận lặn giải trí 40m",
+        "Thời lượng pin": "36 giờ sử dụng thông thường, 72 giờ chế độ tiết kiệm"
+      }
     },
     {
       product_id: "PR007",
       product_name: "iPad Pro M4 11-inch Wi-Fi",
       product_version: "256GB Đen Không Gian",
       versions: ["256GB Đen Không Gian", "512GB Bạc Ánh Sao", "1TB Kính Nano"],
+      colors: ["Đen Không Gian", "Bạc Ánh Sao"],
       brand_id: "BR001",
       category_id: "CG001",
-      product_description: "Mẫu iPad mỏng nhất từ trước tới nay của Apple chỉ 5.3mm với công nghệ màn hình đột phá Ultra Retina XDR Tandem OLED hai tầng và sức mạnh đồ họa bùng nổ của chip Apple M4.",
+      product_description: "Mẫu iPad mỏng nhất lịch sử Apple chỉ 5.3mm với công nghệ màn hình đột phá Ultra Retina XDR Tandem OLED hai tầng rực rỡ và sức mạnh đồ họa đỉnh cao của chip Apple M4 thế hệ mới.",
       product_status: "ACTIVE",
       product_listprice: 28990000,
       sale_price: 26990000,
@@ -280,19 +266,26 @@ const EcomStoreMockData = {
       product_length_cm: 24.97,
       product_width_cm: 17.75,
       product_height_cm: 0.53,
-      product_photos_link: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&auto=format&fit=crop&q=80",
+      product_photos_link: "images/products/PR007.jpg",
       is_hot_deal: true,
       hot_deal_label: "OLED M4 MỚI",
-      smember_discount_pct: 1.0
+      smember_discount_pct: 1.0,
+      specs: {
+        "Màn hình": "11.0 inch Ultra Retina XDR Tandem OLED 120Hz 1600 nits",
+        "Chip": "Apple M4 (9-core CPU, 10-core GPU, Hardware Ray Tracing)",
+        "Độ dày": "5.3 mm siêu mỏng",
+        "Cổng kết nối": "Thunderbolt / USB 4, hỗ trợ Apple Pencil Pro"
+      }
     },
     {
       product_id: "PR008",
       product_name: "Xiaomi 14 Ultra 5G",
       product_version: "16GB/512GB Ống Kính Leica Đen",
       versions: ["16GB/512GB Đen Da Sinh Học", "16GB/512GB Trắng Sứ"],
+      colors: ["Đen Da Sinh Học", "Trắng Sứ"],
       brand_id: "BR003",
       category_id: "CG001",
-      product_description: "Nhiếp ảnh di động chuyên nghiệp kết hợp huyền thoại Leica với cụm 4 camera 50MP cảm biến 1-inch biến thiên vô cấp, vi xử lý Snapdragon 8 Gen 3 và sạc siêu tốc 90W HyperCharge.",
+      product_description: "Nhiếp ảnh di động chuyên nghiệp kết hợp huyền thoại Leica với cụm 4 camera 50MP cảm biến 1-inch biến thiên khẩu độ vô cấp f/1.63 - f/4.0, vi xử lý Snapdragon 8 Gen 3 và sạc siêu tốc 90W HyperCharge.",
       product_status: "ACTIVE",
       product_listprice: 29990000,
       sale_price: 26490000,
@@ -302,16 +295,23 @@ const EcomStoreMockData = {
       product_length_cm: 16.14,
       product_width_cm: 7.53,
       product_height_cm: 0.92,
-      product_photos_link: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&auto=format&fit=crop&q=80",
+      product_photos_link: "images/products/PR008.jpg",
       is_hot_deal: false,
       hot_deal_label: null,
-      smember_discount_pct: 1.5
+      smember_discount_pct: 1.5,
+      specs: {
+        "Camera": "4x 50MP Leica Summilux, cảm biến chính LYT-900 1-inch",
+        "Màn hình": "6.73 inch AMOLED WQHD+ 120Hz 3000 nits",
+        "Vi xử lý": "Snapdragon 8 Gen 3 (4nm)",
+        "Pin & Sạc": "5000 mAh, sạc dây 90W, sạc không dây 80W"
+      }
     },
     {
       product_id: "PR009",
       product_name: "Dell XPS 14 9440 Intel Core Ultra 7",
       product_version: "16GB / 512GB OLED 3.2K Cảm ứng",
       versions: ["16GB/512GB Bạch Kim", "32GB/1TB Đen Titan"],
+      colors: ["Platinum", "Graphite"],
       brand_id: "BR006",
       category_id: "CG002",
       product_description: "Kiệt tác thiết kế laptop siêu sang với bàn phím không viền, thanh tác vụ cảm ứng ẩn điện dung và touchpad kính liền mạch vô hình, màn hình InfinityEdge OLED 120Hz rực rỡ.",
@@ -324,16 +324,23 @@ const EcomStoreMockData = {
       product_length_cm: 32.0,
       product_width_cm: 21.6,
       product_height_cm: 1.8,
-      product_photos_link: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&auto=format&fit=crop&q=80",
+      product_photos_link: "images/products/PR009.jpg",
       is_hot_deal: false,
       hot_deal_label: null,
-      smember_discount_pct: 1.0
+      smember_discount_pct: 1.0,
+      specs: {
+        "Màn hình": "14.5 inch OLED 3.2K (3200 x 2000) Touch 120Hz",
+        "CPU": "Intel Core Ultra 7 155H 16 nhân 22 luồng",
+        "Card đồ họa": "NVIDIA GeForce RTX 4050 6GB GDDR6",
+        "Vật liệu": "Nhôm CNC nguyên khối kết hợp kính Gorilla Glass 3"
+      }
     },
     {
       product_id: "PR010",
       product_name: "Loa Di Động JBL Boombox 3 Wi-Fi",
       product_version: "Đen Chống Nước IP67",
       versions: ["Đen Tiêu Chuẩn", "Rằn Ri Camouflage"],
+      colors: ["Đen", "Camouflage"],
       brand_id: "BR009",
       category_id: "CG003",
       product_description: "Quái thú âm thanh công suất khủng với loa siêu trầm trung tâm mang đến âm trầm uy lực sâu lắng, hỗ trợ kết nối Wi-Fi truyền tải Dolby Atmos 3D và pin bền bỉ 24 giờ chơi nhạc.",
@@ -346,16 +353,22 @@ const EcomStoreMockData = {
       product_length_cm: 48.2,
       product_width_cm: 25.7,
       product_height_cm: 20.0,
-      product_photos_link: "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&auto=format&fit=crop&q=80",
+      product_photos_link: "images/products/PR010.jpg",
       is_hot_deal: true,
       hot_deal_label: "BASS KHỦNG",
-      smember_discount_pct: 1.0
+      smember_discount_pct: 1.0,
+      specs: {
+        "Công suất": "1x 80W RMS Subwoofer + 2x 40W Mid + 2x 10W Tweeter",
+        "Chống nước": "IP67 kháng nước và bụi bẩn hoàn toàn",
+        "Thời lượng pin": "Lên đến 24 giờ nghe nhạc liên tục"
+      }
     },
     {
       product_id: "PR011",
       product_name: "Samsung Galaxy Z Fold6 5G",
       product_version: "12GB/256GB Xám Metal",
       versions: ["12GB/256GB Xám Metal", "12GB/512GB Hồng Rose", "12GB/1TB Xanh Navy"],
+      colors: ["Xám Metal", "Hồng Rose", "Xanh Navy"],
       brand_id: "BR002",
       category_id: "CG001",
       product_description: "Mẫu smartphone màn hình gập cao cấp nhất của Samsung với thiết kế vuông vức thời thượng, mỏng nhẹ chỉ 239g, bản lề rãnh kép chống va đập và trợ lý Galaxy AI thông minh toàn năng.",
@@ -368,16 +381,23 @@ const EcomStoreMockData = {
       product_length_cm: 15.35,
       product_width_cm: 13.26,
       product_height_cm: 0.56,
-      product_photos_link: "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&auto=format&fit=crop&q=80",
+      product_photos_link: "images/products/PR011.jpg",
       is_hot_deal: true,
       hot_deal_label: "GẬP MỎNG NHẸ",
-      smember_discount_pct: 1.5
+      smember_discount_pct: 1.5,
+      specs: {
+        "Màn hình chính": "7.6 inch Dynamic AMOLED 2X 120Hz 2600 nits",
+        "Màn hình phụ": "6.3 inch Dynamic AMOLED 2X 120Hz",
+        "Vi xử lý": "Snapdragon 8 Gen 3 for Galaxy",
+        "Kháng nước": "Chuẩn IP48"
+      }
     },
     {
       product_id: "PR012",
       product_name: "Loa Marshall Stanmore III Bluetooth",
       product_version: "Màu Nâu Vintage",
       versions: ["Màu Nâu Vintage", "Màu Đen Cổ Điển", "Màu Trắng Kem"],
+      colors: ["Nâu Vintage", "Đen Cổ Điển", "Trắng Kem"],
       brand_id: "BR005",
       category_id: "CG003",
       product_description: "Âm thanh nổi phòng khách huyền thoại với phong cách Rock n Roll đặc trưng, núm xoay kim loại đồng thau tinh xảo và tính năng Dynamic Loudness tự cân bằng dải tần hoàn hảo.",
@@ -390,16 +410,22 @@ const EcomStoreMockData = {
       product_length_cm: 35.0,
       product_width_cm: 20.3,
       product_height_cm: 18.8,
-      product_photos_link: "https://images.unsplash.com/photo-1558089687-f282ffcbc126?w=600&auto=format&fit=crop&q=80",
+      product_photos_link: "images/products/PR012.jpg",
       is_hot_deal: false,
       hot_deal_label: null,
-      smember_discount_pct: 1.0
+      smember_discount_pct: 1.0,
+      specs: {
+        "Công suất": "80W Class D Amplifier",
+        "Dải tần": "45 - 20.000 Hz",
+        "Kết nối": "Bluetooth 5.2, Cổng RCA, Cổng 3.5mm Aux"
+      }
     },
     {
       product_id: "PR013",
       product_name: "Màn hình Samsung Odyssey OLED G8 34-inch",
       product_version: "UWQHD 175Hz 0.03ms Cong 1800R",
       versions: ["34-inch Cong OLED 175Hz", "32-inch 4K OLED 240Hz"],
+      colors: ["Bạc Kim Loại"],
       brand_id: "BR002",
       category_id: "CG006",
       product_description: "Màn hình cong gaming OLED đỉnh cao độ sáng vượt trội, công nghệ làm mát tản nhiệt buồng hơi Pulsating Heat Pipe chống lưu ảnh (Burn-in) bảo hành chính hãng 3 năm.",
@@ -412,16 +438,22 @@ const EcomStoreMockData = {
       product_length_cm: 81.3,
       product_width_cm: 19.3,
       product_height_cm: 52.6,
-      product_photos_link: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&auto=format&fit=crop&q=80",
+      product_photos_link: "images/products/PR013.jpg",
       is_hot_deal: false,
       hot_deal_label: null,
-      smember_discount_pct: 1.0
+      smember_discount_pct: 1.0,
+      specs: {
+        "Tấm nền": "OLED Quantum Dot UWQHD (3440 x 1440)",
+        "Tần số quét": "175Hz, thời gian phản hồi 0.03ms (GtG)",
+        "Độ cong": "1800R cong hoàn hảo"
+      }
     },
     {
       product_id: "PR014",
       product_name: "Chuột Không Dây Logitech MX Master 3S",
       product_version: "Màu Xám Than Chì (Graphite)",
       versions: ["Màu Xám Than Chì", "Màu Trắng Ngọc Trai"],
+      colors: ["Graphite", "Pale Gray"],
       brand_id: "BR011",
       category_id: "CG005",
       product_description: "Chuột công thái học cao cấp biểu tượng cho dân văn phòng và lập trình viên: cảm biến quang học 8000 DPI lướt mượt trên mặt kính, phím bấm Quiet Click êm ái và con lăn điện từ MagSpeed.",
@@ -434,16 +466,22 @@ const EcomStoreMockData = {
       product_length_cm: 12.49,
       product_width_cm: 8.43,
       product_height_cm: 5.1,
-      product_photos_link: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&auto=format&fit=crop&q=80",
+      product_photos_link: "images/products/PR014.jpg",
       is_hot_deal: true,
       hot_deal_label: "BEST SELLER",
-      smember_discount_pct: 2.0
+      smember_discount_pct: 2.0,
+      specs: {
+        "Cảm biến": "Darkfield 8000 DPI",
+        "Con lăn": "MagSpeed cuộn 1000 dòng/giây",
+        "Pin": "Pin sạc USB-C lên tới 70 ngày"
+      }
     },
     {
       product_id: "PR015",
       product_name: "Trạm Sạc GaN Anker Prime 6-in-1 200W",
       product_version: "Đen Nhám Hợp Kim",
       versions: ["200W GaN 4C2A", "250W Màn hình thông minh"],
+      colors: ["Đen Nhám"],
       brand_id: "BR010",
       category_id: "CG005",
       product_description: "Củ sạc để bàn thế hệ mới GaNPrime công suất cực khủng 200W sạc cùng lúc 2 laptop MacBook Pro tốc độ tối đa, kiểm soát nhiệt độ thông minh ActiveShield 2.0 bảo vệ thiết bị.",
@@ -456,19 +494,25 @@ const EcomStoreMockData = {
       product_length_cm: 11.2,
       product_width_cm: 7.6,
       product_height_cm: 3.5,
-      product_photos_link: "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=600&auto=format&fit=crop&q=80",
+      product_photos_link: "images/products/PR015.jpg",
       is_hot_deal: false,
       hot_deal_label: null,
-      smember_discount_pct: 2.0
+      smember_discount_pct: 2.0,
+      specs: {
+        "Cổng sạc": "4x USB-C + 2x USB-A",
+        "Công suất": "200W Max (100W + 100W cùng lúc)",
+        "Công nghệ": "GaNPrime thế hệ mới"
+      }
     },
     {
       product_id: "PR016",
       product_name: "Đồng Hồ Thông Minh Garmin Fenix 8 AMOLED",
       product_version: "47mm Viền Titan Dây Silicone Vàng",
       versions: ["47mm Titan Sapphire AMOLED", "51mm Titan Sapphire Solar"],
+      colors: ["Titanium Vàng", "Titanium Đen"],
       brand_id: "BR012",
       category_id: "CG004",
-      product_description: "Đồng hồ GPS thể thao đa môn chuyên nghiệp trang bị màn hình AMOLED rực rỡ, tích hợp loa ngoài và mic đàm thoại, các nút bấm cảm ứng lặn kín nước tiêu chuẩn quân đội Hoa Kỳ.",
+      product_description: "Đồng hồ GPS thể thao đa môn chuyên nghiệp trang bị màn hình AMOLED rực rỡ, tích hợp loa ngoài và mic đàm thoại, các nút bấm cảm ứng lặn kín nước tiêu chuẩn quân đội Hoa Kỳ MIL-STD-810.",
       product_status: "ACTIVE",
       product_listprice: 26990000,
       sale_price: 24990000,
@@ -478,16 +522,22 @@ const EcomStoreMockData = {
       product_length_cm: 4.7,
       product_width_cm: 4.7,
       product_height_cm: 1.38,
-      product_photos_link: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=600&auto=format&fit=crop&q=80",
+      product_photos_link: "images/products/PR016.jpg",
       is_hot_deal: false,
       hot_deal_label: null,
-      smember_discount_pct: 1.0
+      smember_discount_pct: 1.0,
+      specs: {
+        "Màn hình": "1.4 inch AMOLED cảm ứng siêu nhạy",
+        "Pin": "Lên tới 16 ngày ở chế độ smartwatch",
+        "Định vị": "Multi-band GNSS với công nghệ SatIQ"
+      }
     },
     {
       product_id: "PR017",
       product_name: "Robot Hút Bụi Lau Nhà Dreame L20 Ultra",
       product_version: "Trắng Ngọc Trai Kèm Trạm Sạc Tự Động",
       versions: ["Trạm All-in-one Tự Động Giặt Giẻ"],
+      colors: ["Trắng Ngọc Trai"],
       brand_id: "BR003",
       category_id: "CG007",
       product_description: "Robot vệ sinh nhà cửa thông minh bậc nhất với công nghệ tay vươn xoè chổi MopExtend làm sạch sát chân tường, lực hút siêu bão 7000Pa và trạm sạc tự đổ rác giặt sấy khí nóng.",
@@ -500,16 +550,22 @@ const EcomStoreMockData = {
       product_length_cm: 60.0,
       product_width_cm: 45.0,
       product_height_cm: 42.0,
-      product_photos_link: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&auto=format&fit=crop&q=80",
+      product_photos_link: "images/products/PR017.jpg",
       is_hot_deal: true,
       hot_deal_label: "GIẢM 3 TRIỆU",
-      smember_discount_pct: 1.0
+      smember_discount_pct: 1.0,
+      specs: {
+        "Lực hút": "7000 Pa Vormax",
+        "Trạm sạc": "Tự động giặt giẻ, sấy khí nóng, đổ rác và bơm nước",
+        "Dung lượng pin": "6400 mAh"
+      }
     },
     {
       product_id: "PR018",
       product_name: "Tai Nghe Apple AirPods Pro 2 USB-C",
       product_version: "Hộp Sạc MagSafe Loa Tìm Kiếm",
       versions: ["USB-C MagSafe Case"],
+      colors: ["Trắng"],
       brand_id: "BR001",
       category_id: "CG003",
       product_description: "Tai nghe chống ồn chủ động xuất sắc gấp 2 lần với chip H2, chế độ Âm thanh thích ứng thông minh, Nhận biết cuộc trò chuyện tự động và hộp sạc chuẩn USB-C có loa định vị Find My.",
@@ -522,14 +578,19 @@ const EcomStoreMockData = {
       product_length_cm: 6.06,
       product_width_cm: 4.52,
       product_height_cm: 2.17,
-      product_photos_link: "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=600&auto=format&fit=crop&q=80",
+      product_photos_link: "images/products/PR018.jpg",
       is_hot_deal: true,
       hot_deal_label: "APPLE BEST",
-      smember_discount_pct: 1.0
+      smember_discount_pct: 1.0,
+      specs: {
+        "Chip": "Apple H2 trong tai nghe, Apple U1 trong hộp sạc",
+        "Chống ồn": "Chủ động thế hệ mới, Xuyên âm thích ứng",
+        "Pin": "6 giờ nghe liên tục (30 giờ kèm hộp sạc)"
+      }
     }
   ],
 
-  // 5. Product Scores (Đồng bộ 1:1 với Products)
+  // 5. Product Scores
   product_scores: [
     { product_id: "PR001", review_count: 312, avg_rating: 4.9 },
     { product_id: "PR002", review_count: 245, avg_rating: 4.8 },
@@ -551,97 +612,45 @@ const EcomStoreMockData = {
     { product_id: "PR018", review_count: 512, avg_rating: 4.9 }
   ],
 
-  // 6. Sub_Products (Ma trận tồn kho thực tế của 18 sản phẩm tại 10 Showroom)
-  // Đầy đủ trạng thái: >= 5 (Còn hàng), 1..4 (Sắp hết), 0 (Hết hàng)
-  sub_products: [
-    // Showroom Nguyễn Huệ (SB001) - TP.HCM
-    { subsidiary_id: "SB001", product_id: "PR001", quantity: 18 },
-    { subsidiary_id: "SB001", product_id: "PR002", quantity: 12 },
-    { subsidiary_id: "SB001", product_id: "PR003", quantity: 7 },
-    { subsidiary_id: "SB001", product_id: "PR004", quantity: 2 }, // Sắp hết
-    { subsidiary_id: "SB001", product_id: "PR005", quantity: 25 },
-    { subsidiary_id: "SB001", product_id: "PR006", quantity: 0 }, // Hết hàng
-    { subsidiary_id: "SB001", product_id: "PR007", quantity: 9 },
-    { subsidiary_id: "SB001", product_id: "PR014", quantity: 45 },
-    { subsidiary_id: "SB001", product_id: "PR018", quantity: 30 },
+  // 6. Sub_Products (Ma trận tồn kho phân bổ 18 sản phẩm qua 18 Showroom)
+  sub_products: (function() {
+    const subIds = ["SB001","SB002","SB003","SB004","SB005","SB006","SB007","SB008","SB009","SB010","SB011","SB012","SB013","SB014","SB015","SB016","SB017","SB018"];
+    const prodIds = ["PR001","PR002","PR003","PR004","PR005","PR006","PR007","PR008","PR009","PR010","PR011","PR012","PR013","PR014","PR015","PR016","PR017","PR018"];
+    const matrix = [];
+    
+    // Tạo số lượng tồn kho chân thực cho từng cặp
+    subIds.forEach((sId, sIdx) => {
+      prodIds.forEach((pId, pIdx) => {
+        let qty = 0;
+        const seed = (sIdx * 7 + pIdx * 11) % 19;
+        if (seed >= 6) {
+          qty = seed + 2; // Còn hàng (8 - 20)
+        } else if (seed >= 2) {
+          qty = seed; // Sắp hết hàng (2 - 5)
+        } else {
+          qty = 0; // Hết hàng
+        }
+        // Đảm bảo flagship luôn có hàng
+        if (sId === "SB001" || sId === "SB002") {
+          qty = Math.max(qty, 12);
+        }
+        matrix.push({
+          subsidiary_id: sId,
+          product_id: pId,
+          quantity: qty
+        });
+      });
+    });
+    return matrix;
+  })(),
 
-    // Showroom Cầu Giấy (SB002) - Hà Nội
-    { subsidiary_id: "SB002", product_id: "PR001", quantity: 4 }, // Sắp hết
-    { subsidiary_id: "SB002", product_id: "PR002", quantity: 16 },
-    { subsidiary_id: "SB002", product_id: "PR003", quantity: 0 }, // Hết hàng
-    { subsidiary_id: "SB002", product_id: "PR004", quantity: 5 },
-    { subsidiary_id: "SB002", product_id: "PR005", quantity: 14 },
-    { subsidiary_id: "SB002", product_id: "PR006", quantity: 8 },
-    { subsidiary_id: "SB002", product_id: "PR007", quantity: 3 }, // Sắp hết
-    { subsidiary_id: "SB002", product_id: "PR014", quantity: 35 },
-    { subsidiary_id: "SB002", product_id: "PR018", quantity: 22 },
-
-    // Showroom Bạch Đằng (SB003) - Đà Nẵng
-    { subsidiary_id: "SB003", product_id: "PR001", quantity: 8 },
-    { subsidiary_id: "SB003", product_id: "PR002", quantity: 0 }, // Hết hàng
-    { subsidiary_id: "SB003", product_id: "PR003", quantity: 5 },
-    { subsidiary_id: "SB003", product_id: "PR004", quantity: 1 }, // Sắp hết
-    { subsidiary_id: "SB003", product_id: "PR005", quantity: 11 },
-    { subsidiary_id: "SB003", product_id: "PR006", quantity: 6 },
-    { subsidiary_id: "SB003", product_id: "PR014", quantity: 20 },
-    { subsidiary_id: "SB003", product_id: "PR018", quantity: 15 },
-
-    // Showroom Landmark 81 (SB004) - TP.HCM
-    { subsidiary_id: "SB004", product_id: "PR001", quantity: 22 },
-    { subsidiary_id: "SB004", product_id: "PR002", quantity: 10 },
-    { subsidiary_id: "SB004", product_id: "PR003", quantity: 15 },
-    { subsidiary_id: "SB004", product_id: "PR004", quantity: 4 },
-    { subsidiary_id: "SB004", product_id: "PR006", quantity: 12 },
-    { subsidiary_id: "SB004", product_id: "PR011", quantity: 8 },
-    { subsidiary_id: "SB004", product_id: "PR016", quantity: 5 },
-
-    // Showroom Thái Hà (SB005) - Hà Nội
-    { subsidiary_id: "SB005", product_id: "PR001", quantity: 15 },
-    { subsidiary_id: "SB005", product_id: "PR002", quantity: 9 },
-    { subsidiary_id: "SB005", product_id: "PR003", quantity: 12 },
-    { subsidiary_id: "SB005", product_id: "PR004", quantity: 8 },
-    { subsidiary_id: "SB005", product_id: "PR013", quantity: 6 },
-    { subsidiary_id: "SB005", product_id: "PR014", quantity: 50 },
-
-    // Showroom Vạn Hạnh Mall (SB006) - TP.HCM
-    { subsidiary_id: "SB006", product_id: "PR001", quantity: 10 },
-    { subsidiary_id: "SB006", product_id: "PR005", quantity: 18 },
-    { subsidiary_id: "SB006", product_id: "PR007", quantity: 7 },
-    { subsidiary_id: "SB006", product_id: "PR010", quantity: 9 },
-    { subsidiary_id: "SB006", product_id: "PR012", quantity: 6 },
-
-    // Showroom Tràng Thi (SB007) - Hà Nội
-    { subsidiary_id: "SB007", product_id: "PR001", quantity: 6 },
-    { subsidiary_id: "SB007", product_id: "PR003", quantity: 4 },
-    { subsidiary_id: "SB007", product_id: "PR006", quantity: 5 },
-    { subsidiary_id: "SB007", product_id: "PR018", quantity: 19 },
-
-    // Showroom Thủ Đức (SB008) - TP.HCM
-    { subsidiary_id: "SB008", product_id: "PR001", quantity: 14 },
-    { subsidiary_id: "SB008", product_id: "PR002", quantity: 8 },
-    { subsidiary_id: "SB008", product_id: "PR008", quantity: 5 },
-    { subsidiary_id: "SB008", product_id: "PR017", quantity: 4 },
-
-    // Showroom Nguyễn Văn Linh (SB009) - Đà Nẵng
-    { subsidiary_id: "SB009", product_id: "PR001", quantity: 7 },
-    { subsidiary_id: "SB009", product_id: "PR003", quantity: 3 },
-    { subsidiary_id: "SB009", product_id: "PR005", quantity: 9 },
-    { subsidiary_id: "SB009", product_id: "PR015", quantity: 14 },
-
-    // Showroom Quang Trung (SB010) - Hà Nội
-    { subsidiary_id: "SB010", product_id: "PR001", quantity: 9 },
-    { subsidiary_id: "SB010", product_id: "PR002", quantity: 6 },
-    { subsidiary_id: "SB010", product_id: "PR004", quantity: 3 },
-    { subsidiary_id: "SB010", product_id: "PR011", quantity: 4 }
-  ],
-
-  // 7. Program_Sales (Chiến dịch khuyến mãi, Voucher giảm giá)
+  // 7. Program_Sales (Chiến dịch khuyến mãi & Voucher)
   program_sales: [
     {
       sale_id: "SE001",
       code: "WEEKEND10",
       sale_name: "HOT SALE CUỐI TUẦN",
-      discount_value: 0.10, // Giảm 10%
+      discount_value: 0.10, // 10%
       min_ordervalue: 2000000,
       start_date: "2026-01-01",
       end_date: "2026-12-31",
@@ -651,7 +660,7 @@ const EcomStoreMockData = {
       sale_id: "SE002",
       code: "SMEMBER5",
       sale_name: "ƯU ĐÃI SMEMBER VIP",
-      discount_value: 0.05, // Giảm 5%
+      discount_value: 0.05, // 5%
       min_ordervalue: 1000000,
       start_date: "2026-01-01",
       end_date: "2026-12-31",
@@ -661,7 +670,7 @@ const EcomStoreMockData = {
       sale_id: "SE003",
       code: "TECHPRO15",
       sale_name: "BACK TO TECH & WORK",
-      discount_value: 0.15, // Giảm 15%
+      discount_value: 0.15, // 15%
       min_ordervalue: 15000000,
       start_date: "2026-08-01",
       end_date: "2026-12-31",
@@ -676,11 +685,11 @@ const EcomStoreMockData = {
       min_ordervalue: 500000,
       start_date: "2026-01-01",
       end_date: "2026-12-31",
-      description: "Miễn phí giao hàng hỏa tốc trong 2 giờ tại HN, TP.HCM & ĐN"
+      description: "Miễn phí giao hàng hỏa tốc trong 2 giờ tại toàn bộ chi nhánh"
     }
   ],
 
-  // 8. Customers (Khách hàng mẫu đang đăng nhập: Hạng DIAMOND Smember)
+  // 8. Customers (Khách hàng mẫu: Hạng DIAMOND Smember)
   customers: [
     {
       acc_id: "ACC00001001",
@@ -695,14 +704,14 @@ const EcomStoreMockData = {
       district: "Quận 1",
       city: "TP. Hồ Chí Minh",
       account_name: "hoanglong_smember",
-      customer_rank: "DIAMOND", // Smember Diamond: Giảm thêm tới 1.5% và giao hàng miễn phí
+      customer_rank: "DIAMOND",
       is_active: true,
       account_age_days: 720,
       accumulated_spent: 185000000
     }
   ],
 
-  // 9. Orders & Order_Items & Payments (Lịch sử đơn hàng phong phú)
+  // 9. Orders & Order_Items & Payments (Mẫu sẵn có ngay từ đầu)
   orders: [
     {
       order_id: "OD000001",
@@ -713,18 +722,22 @@ const EcomStoreMockData = {
       order_status: "DELIVERED",
       total_amount: 32490000,
       total_shipfee: 0,
+      grand_total: 32490000,
       target_street: "Số 15 Lê Duẩn, P. Bến Nghé",
       target_district: "Quận 1",
       target_city: "TP. Hồ Chí Minh",
-      created_at: "2026-10-25 10:15:00",
-      delivered_at: "2026-10-25 12:30:00",
+      created_at: "2026-11-15 10:15:00",
+      confirmed_at: "2026-11-15 10:20:00",
+      shipped_at: "2026-11-15 11:00:00",
+      delivered_at: "2026-11-15 12:30:00",
+      cancel_date: null,
       items: [
         {
           order_item_id: 1,
           product_id: "PR001",
           product_name: "iPhone 16 Pro Max",
           product_version: "256GB Titan Sa Mạc",
-          product_photos_link: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=300",
+          product_photos_link: "images/products/PR001.jpg",
           subsidiary_id: "SB001",
           subsidiary_name: "EcomFlow Flagship Nguyễn Huệ",
           quantity: 1,
@@ -741,7 +754,7 @@ const EcomStoreMockData = {
         payment_method: "VNPAY",
         payment_status: "SUCCESS",
         payment_amount: 32490000,
-        paid_at: "2026-10-25 10:16:30"
+        paid_at: "2026-11-15 10:16:30"
       }
     },
     {
@@ -753,18 +766,22 @@ const EcomStoreMockData = {
       order_status: "SHIPPED",
       total_amount: 8880000,
       total_shipfee: 30000,
+      grand_total: 8910000,
       target_street: "Số 68 Nguyễn Huệ, P. Bến Nghé",
       target_district: "Quận 1",
       target_city: "TP. Hồ Chí Minh",
       created_at: "2026-11-18 16:45:00",
+      confirmed_at: "2026-11-18 17:00:00",
+      shipped_at: "2026-11-18 17:30:00",
       delivered_at: null,
+      cancel_date: null,
       items: [
         {
           order_item_id: 1,
           product_id: "PR005",
           product_name: "Sony WH-1000XM5 Chống Ồn",
           product_version: "Bạc Ánh Kim (Silver)",
-          product_photos_link: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300",
+          product_photos_link: "images/products/PR005.jpg",
           subsidiary_id: "SB001",
           subsidiary_name: "EcomFlow Flagship Nguyễn Huệ",
           quantity: 1,
@@ -779,7 +796,7 @@ const EcomStoreMockData = {
           product_id: "PR014",
           product_name: "Chuột Không Dây Logitech MX Master 3S",
           product_version: "Màu Xám Than Chì",
-          product_photos_link: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=300",
+          product_photos_link: "images/products/PR014.jpg",
           subsidiary_id: "SB001",
           subsidiary_name: "EcomFlow Flagship Nguyễn Huệ",
           quantity: 1,
@@ -801,7 +818,7 @@ const EcomStoreMockData = {
     }
   ],
 
-  // 10. Reviews & NLP Sentiments (Đánh giá thực tế của khách hàng)
+  // 10. Reviews & Sentiments
   reviews: [
     {
       review_id: "RV000001",
@@ -813,8 +830,8 @@ const EcomStoreMockData = {
       review_sentiment: "Positive",
       review_title: "Chất lượng máy trên cả tuyệt vời, giao hàng 1 tiếng!",
       review_message: "Máy cầm đầm tay, viền Titan sa mạc cực kỳ sang trọng. Giao hỏa tốc từ chi nhánh Nguyễn Huệ chỉ mất 45 phút là shipper đã tới nơi, hỗ trợ chuyển dữ liệu máy cũ chu đáo. 10/10 cho EcomFlow Store!",
-      created_at: "2026-10-26 09:30:00",
-      replied_at: "2026-10-26 10:15:00",
+      created_at: "2026-11-16 09:30:00",
+      replied_at: "2026-11-16 10:15:00",
       reply_content: "Dạ EcomFlow Store cảm ơn anh Long rất nhiều ạ! Chúc anh có những trải nghiệm tuyệt vời cùng siêu phẩm iPhone 16 Pro Max!",
       has_reply: true,
       is_positive_review: true,
@@ -832,7 +849,7 @@ const EcomStoreMockData = {
       review_sentiment: "Positive",
       review_title: "Nút Camera Control tiện lợi hơn mong đợi",
       review_message: "Lướt nhẹ là zoom mượt mà như máy ảnh compact. Màn hình ngoài trời sáng rõ. Giá mua đợt Hot Sale được trừ trực tiếp 2.5 triệu quá hời.",
-      created_at: "2026-10-27 14:20:00",
+      created_at: "2026-11-17 14:20:00",
       replied_at: null,
       reply_content: null,
       has_reply: false,
@@ -851,8 +868,8 @@ const EcomStoreMockData = {
       review_sentiment: "Positive",
       review_title: "Bút S-Pen và tính năng Khoanh vùng tìm kiếm quá đỉnh",
       review_message: "Galaxy AI hỗ trợ dịch cuộc gọi trực tiếp rất chuẩn. Máy màn phẳng dán cường lực dễ dàng hơn hẳn bản cong tiền nhiệm.",
-      created_at: "2026-11-02 11:10:00",
-      replied_at: "2026-11-02 14:00:00",
+      created_at: "2026-11-17 11:10:00",
+      replied_at: "2026-11-17 14:00:00",
       reply_content: "Cảm ơn anh Bảo đã tin chọn Galaxy S24 Ultra tại hệ thống EcomFlow Store!",
       has_reply: true,
       is_positive_review: true,
@@ -870,7 +887,7 @@ const EcomStoreMockData = {
       review_sentiment: "Positive",
       review_title: "Chống ồn máy bay tuyệt đối êm tai",
       review_message: "Đeo đi máy bay hay làm việc ở quán cafe ồn ào bật chống ồn lên là không gian hoàn toàn yên tĩnh. Đệm tai êm ái không bị cấn.",
-      created_at: "2026-11-05 16:40:00",
+      created_at: "2026-11-18 16:40:00",
       replied_at: null,
       reply_content: null,
       has_reply: false,
@@ -889,8 +906,8 @@ const EcomStoreMockData = {
       review_sentiment: "Neutral",
       review_title: "Máy mỏng đẹp nhưng quạt hơi to khi chơi Cyberpunk",
       review_message: "Màn hình OLED 240Hz màu sắc cực đẹp, nhưng khi chơi game nặng ở chế độ Turbo quạt tản nhiệt quay nghe khá rõ.",
-      created_at: "2026-11-10 20:15:00",
-      replied_at: "2026-11-11 08:30:00",
+      created_at: "2026-11-18 20:15:00",
+      replied_at: "2026-11-19 08:30:00",
       reply_content: "Dạ chào anh Hùng, do máy sở hữu GPU RTX 4070 mạnh mẽ trong thân hình mỏng nhẹ nên hệ thống tản nhiệt buồng hơi sẽ tối ưu quạt để giữ nhiệt độ an toàn ạ. Anh có thể chuyển về chế độ Performance khi làm việc bình thường nha anh!",
       has_reply: true,
       is_positive_review: false,
@@ -901,7 +918,7 @@ const EcomStoreMockData = {
   ]
 };
 
-// Xuất ra phạm vi Global Window để script trình duyệt và Node.js đều chạy được
+// Export ra window và module
 if (typeof window !== "undefined") {
   window.EcomStoreMockData = EcomStoreMockData;
 }

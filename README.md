@@ -218,15 +218,25 @@ XÁC NHẬN: 16 ENTITY POJO & 4 COMPOSITE KEY HOẠT ĐỘNG HOÀN TOÀN CHUẨN
 Ecommerce-User/
 ├── .gitignore                          # Cấu hình bỏ qua thư mục build (target/)
 ├── README.md                           # Báo cáo kỹ thuật tiêu chuẩn doanh nghiệp
-├── index.html                          # Trang chủ B2C Storefront phong cách CellPhoneS
+├── index.html                          # Trang chủ B2C Storefront (Banner, Menu, Hot Sale, Catalog)
+├── product-detail.html                 # Trang xem chi tiết sản phẩm chuyên biệt (PDP, Specs, Reviews NLP, Stock)
+├── cart.html                           # Trang giỏ hàng chuyên biệt (Qty stepper, Voucher, Summary)
+├── checkout.html                       # Trang thanh toán đơn hàng & xuất hóa đơn tiếp nhận
+├── order-tracking.html                 # Trang tra cứu & quản lý hành trình đơn hàng (5-Stage Stepper)
+│
+├── images/                             # Thư viện tài nguyên hình ảnh cục bộ (100% offline, không lỗi link)
+│   ├── hero-banner.jpg                 # Banner chính Đại tiệc mở bán công nghệ 2026
+│   ├── sub-banner-1.jpg                # Sub-banner Ưu đãi Smember
+│   ├── sub-banner-2.jpg                # Sub-banner Trả góp 0%
+│   └── products/                       # Ảnh sản phẩm cục bộ (PR001.jpg đến PR018.jpg)
 │
 ├── css/
-│   └── style.css                       # Design System tông Đỏ CellPhoneS & Responsive
+│   └── style.css                       # Design System tông Đỏ & Responsive đa thiết bị
 │
 ├── js/
-│   ├── mock-data.js                    # Mock Data chuẩn hóa 16 bảng CSDL EcomFlow
-│   ├── store.js                        # State & LocalStorage Virtual Database Engine
-│   └── app.js                          # Điều phối giao diện, giỏ hàng, đặt hàng & đánh giá
+│   ├── mock-data.js                    # Mock Data chuẩn hóa 16 bảng CSDL EcomFlow & 18 Showroom
+│   ├── store.js                        # State & SessionStorage Virtual Database Engine (Tự xóa khi đóng web)
+│   └── app.js                          # Điều phối điều hướng 5 trang, giỏ hàng, đặt hàng & đánh giá
 │
 ├── src/main/java/com/ecomflow/store/
 │   ├── common/
@@ -286,13 +296,13 @@ javac -d target/classes (Get-ChildItem -Path "src\main\java" -Recurse -Filter "*
 java -cp target/classes com.ecomflow.store.EcomFlowStoreVerifier
 ```
 
-### 4. Hướng dẫn Thao tác Trình diễn (Demo Script)
-1. **Tìm kiếm & Chọn khu vực:** Gõ "iPhone 16" vào ô tìm kiếm để thấy dropdown gợi ý tự động. Nhấn nút *Xem giá tại* để đổi khu vực sang *TP. Hồ Chí Minh*.
-2. **Xem chi tiết & Kiểm tra kho:** Bấm vào thẻ sản phẩm để mở Modal chi tiết, đổi phiên bản dung lượng và xem danh sách Showroom nào đang *Còn hàng* / *Sắp hết hàng*.
-3. **So sánh sản phẩm:** Tích chọn ô "So sánh" tại 2 sản phẩm bất kỳ, bấm thanh nổi phía dưới để xem bảng đối chiếu thông số song song.
-4. **Mua hàng & Áp mã:** Thêm sản phẩm vào giỏ, nhập mã `WEEKEND10` (giảm 10%) hoặc `SMEMBER5`, tiến hành đặt hàng bằng cổng `VNPAY` hoặc `COD`.
-5. **Theo dõi đơn hàng & Chuyển trạng thái:** Mở phần *Tra cứu đơn*, sử dụng nút **`[⚡ Demo: Chuyển trạng thái tiếp theo]`** để chuyển đơn vừa đặt sang `DELIVERED`, sau đó nhấn nút **"Viết đánh giá ngay"** và chứng kiến điểm sao sản phẩm tự động cập nhật!
-6. **Khôi phục dữ liệu:** Bấm nút **"Khôi phục dữ liệu gốc"** ở chân trang bất kỳ lúc nào để làm mới toàn bộ kho dữ liệu.
+### 4. Hướng dẫn Thao tác Trình diễn Luồng Mua Sắm (End-to-End Demo Script)
+1. **Trang chủ & Chọn Showroom:** Nhấn nút *Xem giá tại* trên thanh Header để mở danh sách 18 showroom trên 5 thành phố lớn (TP.HCM, Hà Nội, Đà Nẵng, Cần Thơ, Hải Phòng). Bấm *Chọn khu vực này* để hệ thống lưu vào phiên làm việc.
+2. **Xem Trang Chi Tiết Sản Phẩm (PDP):** Click vào bất kỳ thẻ sản phẩm nào trên Trang chủ để chuyển hướng sang trang chuyên biệt `product-detail.html?id=PR001`. Tại đây có thể đổi phiên bản bộ nhớ, màu sắc, kiểm tra tồn kho tại 18 chi nhánh và xem/gửi đánh giá cảm xúc NLP.
+3. **Thêm Vào Giỏ & Mua Ngay:** Bấm nút *Thêm vào giỏ* hoặc *Mua ngay* để chuyển sang trang `cart.html`. Tại giỏ hàng, thử nghiệm bộ tăng/giảm số lượng (+/-), nhập hoặc click các chip voucher như `WEEKEND10`, `SMEMBER5` để chiết khấu tức thì.
+4. **Thanh toán & Xuất Đơn Hàng:** Nhấn *Tiến hành đặt hàng* để điều hướng tới `checkout.html`. Kiểm tra thông tin người nhận, showroom điều phối gần nhất, chọn phương thức thanh toán (COD, VNPAY, MoMo, Banking) và nhấn *Hoàn tất đặt hàng*.
+5. **Tra cứu & Quản lý Hành trình Đơn hàng:** Click *Theo dõi hành trình đơn hàng ngay* hoặc chọn *Tra cứu đơn* trên Header để vào `order-tracking.html`. Xem timeline 5 bước giao hàng trực quan và sử dụng nút **`[⚡ Demo: Chuyển trạng thái tiếp theo]`** để trực tiếp điều khiển đơn hàng chuyển trạng thái (`PENDING` ➔ `CONFIRMED` ➔ `PROCESSING` ➔ `SHIPPING` ➔ `DELIVERED`).
+6. **Lưu trữ Tạm thời (Session-based):** Dữ liệu được lưu trong `sessionStorage` giúp bảo mật phiên mua sắm; khi tắt trình duyệt/tab thì dữ liệu sẽ tự động giải phóng theo đúng yêu cầu đề tài. Muốn làm mới bất kỳ lúc nào chỉ cần bấm nút **"Khôi phục dữ liệu gốc"** ở chân trang.
 
 ---
 

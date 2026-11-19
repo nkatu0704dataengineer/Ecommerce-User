@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ECOMFLOW STORE - CUSTOMER STOREFRONT (CELLPHONES STYLE)
+   ECOMFLOW STORE - CUSTOMER STOREFRONT DESIGN SYSTEM
    Color Palette: Crimson Red (#D90429), Ruby (#DC2626), Slate (#0F172A), Gold (#F59E0B)
    ========================================================================== */
 
@@ -51,12 +51,12 @@ body {
   font-size: 0.925rem;
   line-height: 1.5;
   margin: 0;
-  padding-top: 72px; /* Dành chỗ cho Fixed Topbar */
+  padding-top: 72px; /* Fixed Topbar Height */
   overflow-x: hidden;
 }
 
 /* ==========================================================================
-   HEADER & NAVIGATION BAR (FIXED RED CELLPHONES THEME)
+   HEADER & NAVIGATION BAR
    ========================================================================== */
 .store-header {
   position: fixed;
@@ -94,17 +94,8 @@ body {
 .brand-logo:hover {
   color: #FFF1F2;
 }
-.brand-logo .brand-badge {
-  background: rgba(255, 255, 255, 0.2);
-  font-size: 0.65rem;
-  padding: 2px 6px;
-  border-radius: 4px;
-  text-transform: uppercase;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
 
-/* Location Selector Dropdown */
+/* Location Selector Button */
 .location-btn {
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.25);
@@ -118,6 +109,7 @@ body {
   cursor: pointer;
   white-space: nowrap;
   transition: var(--transition);
+  text-decoration: none;
 }
 .location-btn:hover {
   background: rgba(255, 255, 255, 0.25);
@@ -244,7 +236,6 @@ body {
   color: #FFFFFF;
 }
 
-/* Cart Badge */
 .cart-badge-wrapper {
   position: relative;
 }
@@ -265,7 +256,6 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Smember Card */
 .smember-pill {
   background: linear-gradient(135deg, #FFF1F2 0%, #FFE4E6 100%);
   color: var(--primary-red-dark);
@@ -290,12 +280,37 @@ body {
 }
 
 /* ==========================================================================
-   MAIN CONTAINER & HERO SECTION (CELLPHONES LAYOUT)
+   MAIN CONTAINER & BREADCRUMBS
    ========================================================================== */
 .main-wrapper {
   max-width: 1240px;
   margin: 16px auto;
   padding: 0 16px;
+}
+
+.store-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.store-breadcrumb a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: var(--transition);
+}
+.store-breadcrumb a:hover {
+  color: var(--primary-red);
+}
+.store-breadcrumb .separator {
+  color: var(--text-light);
+}
+.store-breadcrumb .current {
+  color: var(--text-dark);
+  font-weight: 600;
 }
 
 /* Hero 3-Columns Grid */
@@ -361,7 +376,8 @@ body {
   overflow: hidden;
   box-shadow: var(--shadow-card);
   position: relative;
-  background: #000;
+  background: #1E293B;
+  min-height: 380px;
 }
 .hero-banner-img {
   width: 100%;
@@ -430,10 +446,11 @@ body {
   padding: 3px 8px;
   border-radius: var(--radius-sm);
   text-transform: uppercase;
+  z-index: 2;
 }
 
 /* ==========================================================================
-   HOT SALE CUỐI TUẦN (COUNTDOWN BLOCK)
+   HOT SALE CUỐI TUẦN
    ========================================================================== */
 .hotsale-section {
   background: linear-gradient(135deg, #D90429 0%, #BA0323 50%, #8D021A 100%);
@@ -472,7 +489,6 @@ body {
   100% { transform: scale(1.2); filter: drop-shadow(0 0 10px #F59E0B); }
 }
 
-/* Countdown Timer Box */
 .countdown-box {
   display: flex;
   align-items: center;
@@ -501,7 +517,7 @@ body {
 }
 
 /* ==========================================================================
-   PRODUCT CARD (CELLPHONES COMPONENT)
+   PRODUCT CARD
    ========================================================================== */
 .product-grid {
   display: grid;
@@ -520,6 +536,8 @@ body {
   position: relative;
   transition: var(--transition);
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 }
 .product-card:hover {
   transform: translateY(-4px);
@@ -539,19 +557,6 @@ body {
   border-radius: var(--radius-sm);
   z-index: 2;
 }
-.product-compare-checkbox {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 2;
-  font-size: 0.75rem;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 2px 6px;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
 
 .product-thumb-wrapper {
   width: 100%;
@@ -567,7 +572,7 @@ body {
 .product-thumb {
   max-width: 100%;
   max-height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform 0.3s ease;
 }
 .product-card:hover .product-thumb {
@@ -622,7 +627,6 @@ body {
   font-size: 0.8rem;
 }
 
-/* Smember Perk Box on Card */
 .smember-card-perk {
   background: var(--primary-red-light);
   border: 1px dashed var(--primary-red-border);
@@ -637,7 +641,6 @@ body {
   font-weight: 600;
 }
 
-/* Rating & Location Stock Indicator */
 .product-rating-row {
   display: flex;
   align-items: center;
@@ -657,7 +660,7 @@ body {
 }
 
 /* ==========================================================================
-   CATEGORY SECTION WITH BRAND FILTER PILLS
+   ADVANCED FILTER BAR
    ========================================================================== */
 .section-block {
   margin-bottom: 32px;
@@ -704,9 +707,6 @@ body {
   border-color: var(--primary-red);
 }
 
-/* ==========================================================================
-   ADVANCED FILTER BAR
-   ========================================================================== */
 .filter-bar-card {
   background: var(--bg-card);
   border-radius: var(--radius-lg);
@@ -714,12 +714,6 @@ body {
   box-shadow: var(--shadow-sm);
   padding: 16px 20px;
   margin-bottom: 24px;
-}
-.filter-row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
 }
 .filter-group-title {
   font-weight: 700;
@@ -750,49 +744,40 @@ body {
 }
 
 /* ==========================================================================
-   PRODUCT DETAIL MODAL & STOCK CHECKER
+   PRODUCT DETAIL PAGE (PDP)
    ========================================================================== */
-.modal-header-red {
-  background: linear-gradient(135deg, #D90429 0%, #BA0323 100%);
-  color: #FFFFFF;
-  border-top-left-radius: var(--radius-lg);
-  border-top-right-radius: var(--radius-lg);
-}
-.modal-header-red .btn-close {
-  filter: brightness(0) invert(1);
-}
-
-.pdp-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-}
-@media (max-width: 768px) {
-  .pdp-grid {
-    grid-template-columns: 1fr;
-  }
+.pdp-container {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+  margin-bottom: 30px;
 }
 
-.pdp-img-gallery {
-  border-radius: var(--radius-md);
-  overflow: hidden;
+.pdp-main-img-box {
   background: #FAFAFA;
   border: 1px solid var(--border-color);
-  padding: 16px;
+  border-radius: var(--radius-lg);
+  padding: 20px;
   text-align: center;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.pdp-main-img {
+.pdp-main-img-box img {
   max-width: 100%;
-  height: 320px;
+  max-height: 380px;
   object-fit: contain;
+  transition: transform 0.3s ease;
 }
 
-/* Version Selector */
-.version-selector-group {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin: 12px 0;
+.pdp-selector-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text-dark);
 }
 .version-pill {
   border: 2px solid var(--border-color);
@@ -815,28 +800,28 @@ body {
   background: #F8FAFC;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  padding: 14px;
+  padding: 16px;
   margin: 16px 0;
 }
 .stock-checker-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   font-weight: 700;
   font-size: 0.88rem;
 }
 .stock-list {
-  max-height: 180px;
+  max-height: 220px;
   overflow-y: auto;
   border: 1px solid var(--border-light);
   border-radius: var(--radius-sm);
   background: #FFFFFF;
 }
 .stock-item {
-  padding: 8px 12px;
+  padding: 10px 14px;
   border-bottom: 1px solid var(--border-light);
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -848,40 +833,40 @@ body {
   background: #DCFCE7;
   color: #15803D;
   font-weight: 700;
-  padding: 2px 8px;
+  padding: 3px 10px;
   border-radius: 12px;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
 }
 .badge-low-stock {
   background: #FEF3C7;
   color: #B45309;
   font-weight: 700;
-  padding: 2px 8px;
+  padding: 3px 10px;
   border-radius: 12px;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
 }
 .badge-out-of-stock {
   background: #FEE2E2;
   color: #B91C1C;
   font-weight: 700;
-  padding: 2px 8px;
+  padding: 3px 10px;
   border-radius: 12px;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
 }
 
 /* Reviews & Sentiment NLP Section */
 .reviews-section {
   border-top: 1px solid var(--border-color);
-  padding-top: 20px;
-  margin-top: 20px;
+  padding-top: 24px;
+  margin-top: 24px;
 }
 .sentiment-badge-pos {
   background: #ECFDF5;
   color: #065F46;
   border: 1px solid #A7F3D0;
   font-weight: 700;
-  font-size: 0.7rem;
-  padding: 2px 6px;
+  font-size: 0.72rem;
+  padding: 2px 8px;
   border-radius: 10px;
 }
 .sentiment-badge-neu {
@@ -889,8 +874,8 @@ body {
   color: #92400E;
   border: 1px solid #FDE68A;
   font-weight: 700;
-  font-size: 0.7rem;
-  padding: 2px 6px;
+  font-size: 0.72rem;
+  padding: 2px 8px;
   border-radius: 10px;
 }
 .sentiment-badge-neg {
@@ -898,22 +883,60 @@ body {
   color: #991B1B;
   border: 1px solid #FECACA;
   font-weight: 700;
-  font-size: 0.7rem;
-  padding: 2px 6px;
+  font-size: 0.72rem;
+  padding: 2px 8px;
   border-radius: 10px;
 }
 
 .cskh-reply-box {
   background: #F1F5F9;
   border-left: 3px solid var(--primary-red);
-  padding: 8px 12px;
-  border-radius: 0 6px 6px 0;
-  font-size: 0.8rem;
-  margin-top: 6px;
+  padding: 10px 14px;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.82rem;
+  margin-top: 8px;
 }
 
 /* ==========================================================================
-   ORDER TRACKING & TIMELINE
+   CART & CHECKOUT PAGE
+   ========================================================================== */
+.cart-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.cart-table th {
+  background: #F8FAFC;
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.cart-qty-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.voucher-chip {
+  cursor: pointer;
+  transition: var(--transition);
+}
+.voucher-chip:hover {
+  background: var(--primary-red-light) !important;
+  border-color: var(--primary-red) !important;
+}
+
+/* ==========================================================================
+   ORDER TRACKING & 5-STAGE STEPPER
    ========================================================================== */
 .order-tracking-card {
   background: var(--bg-card);
@@ -921,20 +944,19 @@ body {
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-card);
   padding: 20px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 .order-tracking-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--border-color);
-  padding-bottom: 12px;
+  padding-bottom: 14px;
   margin-bottom: 16px;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-/* 5-Stage Timeline Stepper */
 .timeline-stepper {
   display: flex;
   align-items: center;
@@ -946,8 +968,8 @@ body {
   content: '';
   position: absolute;
   top: 18px;
-  left: 20px;
-  right: 20px;
+  left: 30px;
+  right: 30px;
   height: 4px;
   background: var(--border-color);
   z-index: 1;
@@ -961,15 +983,15 @@ body {
   text-align: center;
 }
 .timeline-icon {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: #E2E8F0;
   color: var(--text-muted);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
+  font-size: 1.05rem;
   margin-bottom: 6px;
   transition: var(--transition);
   border: 3px solid #FFFFFF;
@@ -977,14 +999,14 @@ body {
 .timeline-step.active .timeline-icon {
   background: var(--primary-red);
   color: #FFFFFF;
-  box-shadow: 0 0 0 3px rgba(217, 4, 41, 0.25);
+  box-shadow: 0 0 0 4px rgba(217, 4, 41, 0.25);
 }
 .timeline-step.completed .timeline-icon {
   background: var(--color-success);
   color: #FFFFFF;
 }
 .timeline-label {
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--text-muted);
 }
@@ -992,44 +1014,21 @@ body {
   color: var(--primary-red);
 }
 
-/* Demo Control Bar */
 .demo-control-bar {
   background: #FFFBEB;
   border: 1px solid #FDE68A;
   border-radius: var(--radius-md);
-  padding: 8px 14px;
+  padding: 10px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 12px;
-  font-size: 0.8rem;
+  margin-top: 14px;
+  font-size: 0.82rem;
   color: #92400E;
 }
 
 /* ==========================================================================
-   COMPARE FLOATING BAR
-   ========================================================================== */
-.compare-floating-bar {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #FFFFFF;
-  border: 2px solid var(--primary-red);
-  border-radius: 30px;
-  padding: 8px 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  display: none;
-  align-items: center;
-  gap: 16px;
-  z-index: 1030;
-}
-.compare-floating-bar.active {
-  display: flex;
-}
-
-/* ==========================================================================
-   FOOTER (CELLPHONES THEME)
+   FOOTER
    ========================================================================== */
 .store-footer {
   background: #FFFFFF;
@@ -1065,4 +1064,151 @@ body {
   color: var(--primary-red);
   font-weight: 800;
   font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   SHOWROOM SELECTOR MODAL & MULTI-PAGE ENHANCEMENTS
+   ========================================================================== */
+.city-tab-pills {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+}
+.city-tab-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  background: #FFFFFF;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+.city-tab-btn:hover {
+  border-color: var(--primary-red);
+  color: var(--primary-red);
+}
+.city-tab-btn.active {
+  background: var(--primary-red);
+  color: #FFFFFF;
+  border-color: var(--primary-red);
+}
+.showroom-modal-list {
+  max-height: 380px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.showroom-card-item {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: var(--transition);
+}
+.showroom-card-item:hover {
+  border-color: var(--primary-red);
+  background: #FFF5F5;
+  box-shadow: 0 4px 12px rgba(217, 4, 41, 0.08);
+}
+.showroom-card-item.active-showroom {
+  border-color: var(--primary-red);
+  background: #FFF0F2;
+}
+.showroom-info-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  margin-bottom: 2px;
+}
+.showroom-info-address {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.showroom-info-hours {
+  font-size: 0.75rem;
+  color: #15803D;
+  font-weight: 600;
+}
+
+/* Breadcrumb Navigation */
+.store-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  margin: 16px 0;
+  color: var(--text-muted);
+}
+.store-breadcrumb a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: var(--transition);
+}
+.store-breadcrumb a:hover {
+  color: var(--primary-red);
+}
+.store-breadcrumb .separator {
+  font-size: 0.75rem;
+  color: #CBD5E1;
+}
+.store-breadcrumb .current {
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+/* Dedicated PDP Gallery & Specs */
+.pdp-detail-wrapper {
+  background: #FFFFFF;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-card);
+  padding: 28px;
+  margin-bottom: 30px;
+}
+.pdp-gallery-main {
+  width: 100%;
+  height: 420px;
+  object-fit: contain;
+  background: #FAFAFA;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  transition: var(--transition);
+}
+.pdp-gallery-main:hover {
+  transform: scale(1.02);
+}
+.version-pill-btn {
+  border: 1.5px solid var(--border-color);
+  background: #FFFFFF;
+  border-radius: var(--radius-md);
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.version-pill-btn:hover {
+  border-color: var(--primary-red);
+  color: var(--primary-red);
+}
+.version-pill-btn.active {
+  border-color: var(--primary-red);
+  background: #FEF2F2;
+  color: var(--primary-red);
+  box-shadow: 0 0 0 1px var(--primary-red);
 }

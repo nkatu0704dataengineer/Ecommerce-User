@@ -20,7 +20,7 @@
 <body>
 
   <!-- ========================================================================
-       1. FIXED RED HEADER (CELLPHONES STYLE)
+       1. FIXED RED HEADER
        ======================================================================== -->
   <header class="store-header">
     <div class="header-container">
@@ -28,7 +28,6 @@
       <a href="index.html" class="brand-logo">
         <i class="bi bi-fire text-warning fs-3"></i>
         <span>EcomFlow<span class="text-warning">Store</span></span>
-        <span class="brand-badge">CellPhoneS Style</span>
       </a>
 
       <!-- Location Selector Button -->
@@ -62,18 +61,18 @@
           </div>
         </a>
 
-        <!-- Order Tracking Button -->
-        <button class="header-btn" id="headerTrackingBtn">
+        <!-- Order Tracking Link -->
+        <a href="order-tracking.html" class="header-btn" id="headerTrackingBtn">
           <i class="bi bi-box-seam-fill text-warning"></i>
           <span class="d-none d-md-inline">Tra cứu đơn</span>
-        </button>
+        </a>
 
-        <!-- Cart Button with Dynamic Badge -->
-        <button class="header-btn cart-badge-wrapper" id="headerCartBtn">
+        <!-- Cart Link with Dynamic Badge -->
+        <a href="cart.html" class="header-btn cart-badge-wrapper" id="headerCartBtn">
           <i class="bi bi-cart3 text-warning fs-5"></i>
           <span class="d-none d-md-inline">Giỏ hàng</span>
           <span class="cart-badge cart-badge-count">0</span>
-        </button>
+        </a>
 
         <!-- Smember User Card -->
         <div class="smember-pill d-none d-sm-flex" id="headerCustomerRank">
@@ -97,27 +96,27 @@
 
       <!-- Column 2: Large Hero Promo Banner -->
       <div class="hero-center">
-        <img class="hero-banner-img" src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=1000&auto=format&fit=crop&q=80" alt="iPhone 16 Pro Max">
+        <img class="hero-banner-img" src="images/hero-banner.jpg" alt="iPhone 16 Pro Max">
         <div class="hero-overlay">
           <span class="badge bg-danger mb-2">ĐẠI TIỆC MỞ BÁN CÔNG NGHỆ 2026</span>
           <h2>iPhone 16 Pro Max & Galaxy S24 Ultra</h2>
           <p>Thu cũ đổi mới trợ giá đến 5.000.000đ • Trả góp 0% lãi suất • Giảm thêm 1.5% cho Smember</p>
-          <button class="btn btn-danger fw-bold" onclick="document.getElementById('catalogSection').scrollIntoView({behavior:'smooth'})">
+          <a href="#catalogSection" class="btn btn-danger fw-bold">
             <i class="bi bi-bag-check"></i> Sắm Ngay Hôm Nay
-          </button>
+          </a>
         </div>
       </div>
 
-      <!-- Column 3: 2 Sub Banners (CellPhoneS Style) -->
+      <!-- Column 3: 2 Sub Banners -->
       <div class="hero-right">
-        <div class="side-banner-card">
+        <a href="#catalogSection" class="side-banner-card">
           <span class="side-banner-badge">ƯU ĐÃI SMEMBER</span>
-          <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&auto=format&fit=crop&q=80" alt="MacBook M3">
-        </div>
-        <div class="side-banner-card">
+          <img src="images/sub-banner-1.jpg" alt="MacBook M3">
+        </a>
+        <a href="#catalogSection" class="side-banner-card">
           <span class="side-banner-badge" style="background:#0F172A">TRẢ GÓP 0%</span>
-          <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=500&auto=format&fit=crop&q=80" alt="ROG Gaming">
-        </div>
+          <img src="images/sub-banner-2.jpg" alt="ROG Gaming">
+        </a>
       </div>
     </section>
 
@@ -598,29 +597,29 @@
   </div>
 
   <!-- ========================================================================
-       10. MODAL: CHỌN KHU VỰC / THÀNH PHỐ
+       10. MODAL: CHỌN KHU VỰC & SHOWROOM CHI NHÁNH
        ======================================================================== -->
   <div class="modal fade" id="locationModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content border-0 shadow-lg">
         <div class="modal-header modal-header-red">
-          <h6 class="modal-title fw-bold"><i class="bi bi-geo-alt"></i> Chọn Tỉnh/Thành phố xem giá và tồn kho</h6>
+          <h5 class="modal-title fw-bold"><i class="bi bi-geo-alt-fill"></i> Chọn Showroom Xem Giá & Tồn Kho Theo Khu Vực</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body p-3">
-          <div class="d-grid gap-2">
-            <button class="btn btn-outline-danger text-start city-choice-btn py-2" data-city="ALL">
-              <strong>Toàn quốc</strong> (Xem toàn bộ 51 Showroom trên cả nước)
-            </button>
-            <button class="btn btn-outline-danger text-start city-choice-btn py-2" data-city="TP. Hồ Chí Minh">
-              <strong>TP. Hồ Chí Minh</strong> (Showroom Flagship Nguyễn Huệ, Landmark 81, Vạn Hạnh Mall, Thủ Đức)
-            </button>
-            <button class="btn btn-outline-danger text-start city-choice-btn py-2" data-city="Hà Nội">
-              <strong>Hà Nội</strong> (Showroom Cầu Giấy Hub, Thái Hà, Tràng Thi, Hà Đông)
-            </button>
-            <button class="btn btn-outline-danger text-start city-choice-btn py-2" data-city="Đà Nẵng">
-              <strong>Đà Nẵng</strong> (Showroom Hải Châu Center, Nguyễn Văn Linh)
-            </button>
+        <div class="modal-body p-4">
+          <!-- City Tabs -->
+          <div class="city-tab-pills" id="modalCityTabs">
+            <button class="city-tab-btn active" data-city="ALL">Toàn quốc (18)</button>
+            <button class="city-tab-btn" data-city="TP. Hồ Chí Minh">TP. Hồ Chí Minh (6)</button>
+            <button class="city-tab-btn" data-city="Hà Nội">Hà Nội (5)</button>
+            <button class="city-tab-btn" data-city="Đà Nẵng">Đà Nẵng (3)</button>
+            <button class="city-tab-btn" data-city="Cần Thơ">Cần Thơ (2)</button>
+            <button class="city-tab-btn" data-city="Hải Phòng">Hải Phòng (2)</button>
+          </div>
+
+          <!-- Showroom List Container -->
+          <div class="showroom-modal-list" id="modalShowroomList">
+            <!-- Rendered dynamically by JS -->
           </div>
         </div>
       </div>
@@ -628,7 +627,7 @@
   </div>
 
   <!-- ========================================================================
-       11. FOOTER (CELLPHONES STYLE)
+       11. FOOTER
        ======================================================================== -->
   <footer class="store-footer">
     <div class="main-wrapper">

@@ -1,12 +1,12 @@
 /**
- * EcomFlow Store - State & LocalStorage Engine
- * Đóng vai trò là Tầng Quản lý Dữ liệu Phía Client (Client-side Virtual Database)
- * Đảm bảo dữ liệu giỏ hàng, đặt hàng, cập nhật trạng thái đơn, và đánh giá NLP
- * được duy trì liên tục xuyên suốt phiên làm việc.
+ * EcomFlow Store - State & Storage Engine
+ * Quản lý trạng thái phiên làm việc (Session & Local Storage)
+ * Đảm bảo dữ liệu giỏ hàng, đặt hàng, cập nhật trạng thái đơn, và đánh giá
+ * hoạt động mượt mà giữa các trang HTML mà không cần backend hay database.
  */
 
 const EcomStore = (function () {
-  const STORAGE_KEY = "ECOMFLOW_STOREFRONT_STATE_V2";
+  const SESSION_KEY = "ECOMFLOW_STORE_SESSION_V3";
 
   // Khởi tạo trạng thái ban đầu từ Mock Data
   function getInitialState() {
@@ -17,7 +17,6 @@ const EcomStore = (function () {
     // Deep clone để không làm biến dạng dữ liệu gốc
     const cloned = JSON.parse(JSON.stringify(rawMock));
 
-    // Khởi tạo giỏ hàng trống nếu chưa có
     if (!cloned.cart) {
       cloned.cart = {
         cart_id: "CART_USER_01",
@@ -30,37 +29,51 @@ const EcomStore = (function () {
       };
     }
 
+    if (!cloned.selectedCity) cloned.selectedCity = "ALL";
+    if (!cloned.selectedBranchId) cloned.selectedBranchId = "SB001"; // Flagship Nguyễn Huệ
+
     return cloned;
   }
 
-  // Tải trạng thái từ localStorage
+  // Tải trạng thái từ sessionStorage (hoặc fallback localStorage)
   function loadState() {
     try {
-      const serialized = localStorage.getItem(STORAGE_KEY);
-      if (serialized) {
-        return JSON.parse(serialized);
+      if (typeof window !== "undefined") {
+        let serialized = sessionStorage.getItem(SESSION_KEY);
+        if (!serialized) {
+          serialized = localStorage.getItem(SESSION_KEY);
+        }
+        if (serialized) {
+          const parsed = JSON.parse(serialized);
+          // Đảm bảo có danh sách orders và cart
+          if (parsed && parsed.products && parsed.products.length > 0) {
+            return parsed;
+          }
+        }
       }
     } catch (e) {
-      console.warn("Không thể đọc localStorage, dùng dữ liệu khởi tạo ban đầu:", e);
+      console.warn("Lỗi khi đọc storage, dùng dữ liệu khởi tạo ban đầu:", e);
     }
     const freshState = getInitialState();
     saveState(freshState);
     return freshState;
   }
 
-  // Lưu trạng thái vào localStorage
+  // Lưu trạng thái
   function saveState(state) {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      if (typeof window !== "undefined") {
+        const serialized = JSON.stringify(state);
+        sessionStorage.setItem(SESSION_KEY, serialized);
+        localStorage.setItem(SESSION_KEY, serialized);
+      }
     } catch (e) {
-      console.error("Lỗi khi ghi vào localStorage:", e);
+      console.error("Lỗi khi ghi storage:", e);
     }
   }
 
-  // Biến state runtime
   let appState = loadState();
 
-  // Đảm bảo giỏ hàng luôn được tính toán đúng
   function recalculateCart() {
     let count = 0;
     let sum = 0;
@@ -72,7 +85,6 @@ const EcomStore = (function () {
     appState.cart.total_items = count;
     appState.cart.total_amount = sum;
 
-    // Kiểm tra lại voucher nếu tổng tiền bị giảm dưới ngưỡng tối thiểu
     if (appState.cart.applied_voucher) {
       if (sum < appState.cart.applied_voucher.min_ordervalue) {
         appState.cart.applied_voucher = null;
@@ -82,21 +94,61 @@ const EcomStore = (function () {
   }
 
   return {
-    // 1. Quản trị hệ thống & Khôi phục dữ liệu
     getState: function () {
       return appState;
     },
 
     resetToDefault: function () {
-      localStorage.removeItem(STORAGE_KEY);
+      if (typeof window !== "undefined") {
+        sessionStorage.removeItem(SESSION_KEY);
+        localStorage.removeItem(SESSION_KEY);
+      }
       appState = getInitialState();
       saveState(appState);
       return appState;
     },
 
-    // 2. Thông tin khách hàng đang đăng nhập (Smember)
+    // 1. Khách hàng
     getCurrentCustomer: function () {
       return appState.customers && appState.customers.length > 0 ? appState.customers[0] : null;
+    },
+
+    // 2. Chi nhánh & Khu vực
+    getCities: function () {
+      return ["Toàn quốc", "TP. Hồ Chí Minh", "Hà Nội", "Đà Nẵng", "Cần Thơ", "Hải Phòng"];
+    },
+
+    getSelectedCity: function () {
+      return appState.selectedCity || "ALL";
+    },
+
+    setSelectedCity: function (city) {
+      appState.selectedCity = city;
+      saveState(appState);
+      return city;
+    },
+
+    getSubsidiaries: function () {
+      return appState.subsidiaries || [];
+    },
+
+    getSubsidiariesByCity: function (city) {
+      const all = appState.subsidiaries || [];
+      if (!city || city === "ALL" || city === "Toàn quốc") return all;
+      return all.filter(s => s.sub_city === city);
+    },
+
+    getSelectedBranch: function () {
+      const subId = appState.selectedBranchId || "SB001";
+      return (appState.subsidiaries || []).find(s => s.sub_id === subId) || appState.subsidiaries[0];
+    },
+
+    setSelectedBranch: function (branchId) {
+      appState.selectedBranchId = branchId;
+      const b = (appState.subsidiaries || []).find(s => s.sub_id === branchId);
+      if (b) appState.selectedCity = b.sub_city;
+      saveState(appState);
+      return b;
     },
 
     // 3. Danh mục, Thương hiệu & Sản phẩm
@@ -116,11 +168,7 @@ const EcomStore = (function () {
       return (appState.products || []).find(p => p.product_id === productId) || null;
     },
 
-    getSubsidiaries: function () {
-      return appState.subsidiaries || [];
-    },
-
-    // 4. Tra cứu Tồn kho đa chi nhánh (Sub_Products)
+    // 4. Tra cứu Tồn kho
     getProductInventory: function (productId, filterCity) {
       const stockRecords = (appState.sub_products || []).filter(sp => sp.product_id === productId);
       const subsidiaries = appState.subsidiaries || [];
@@ -156,24 +204,26 @@ const EcomStore = (function () {
         };
       });
 
-      if (filterCity && filterCity !== "ALL") {
+      if (filterCity && filterCity !== "ALL" && filterCity !== "Toàn quốc") {
         return result.filter(item => item.sub_city === filterCity);
       }
       return result;
     },
 
-    // 5. Quản lý Giỏ hàng (Cart & Cart Items)
+    // 5. Giỏ hàng
     getCart: function () {
       return appState.cart;
     },
 
-    addToCart: function (productId, selectedVersion, quantity = 1) {
+    addToCart: function (productId, selectedVersion, quantity = 1, selectedColor = null) {
       const product = this.getProductById(productId);
       if (!product) return { success: false, message: "Sản phẩm không tồn tại" };
 
       const version = selectedVersion || product.product_version || "Tiêu chuẩn";
+      const color = selectedColor || (product.colors ? product.colors[0] : "");
+      
       const existingItem = appState.cart.items.find(
-        item => item.product_id === productId && item.product_version === version
+        item => item.product_id === productId && item.product_version === version && item.color === color
       );
 
       if (existingItem) {
@@ -185,6 +235,7 @@ const EcomStore = (function () {
           product_id: product.product_id,
           product_name: product.product_name,
           product_version: version,
+          color: color,
           product_photos_link: product.product_photos_link,
           list_price: product.product_listprice,
           sale_price: product.sale_price || product.product_listprice,
@@ -198,9 +249,9 @@ const EcomStore = (function () {
       return { success: true, cart: appState.cart };
     },
 
-    updateCartItemQty: function (productId, version, newQty) {
+    updateCartItemQty: function (productId, version, color, newQty) {
       const idx = appState.cart.items.findIndex(
-        item => item.product_id === productId && item.product_version === version
+        item => item.product_id === productId && item.product_version === version && (color ? item.color === color : true)
       );
       if (idx !== -1) {
         if (newQty <= 0) {
@@ -213,9 +264,9 @@ const EcomStore = (function () {
       return appState.cart;
     },
 
-    removeFromCart: function (productId, version) {
+    removeFromCart: function (productId, version, color) {
       appState.cart.items = appState.cart.items.filter(
-        item => !(item.product_id === productId && item.product_version === version)
+        item => !(item.product_id === productId && item.product_version === version && (color ? item.color === color : true))
       );
       recalculateCart();
       return appState.cart;
@@ -228,7 +279,7 @@ const EcomStore = (function () {
       return appState.cart;
     },
 
-    // 6. Quản lý Khuyến mãi & Áp mã giảm giá
+    // 6. Voucher
     getVouchers: function () {
       return appState.program_sales || [];
     },
@@ -274,7 +325,7 @@ const EcomStore = (function () {
       return { success: true };
     },
 
-    // 7. Quy trình Đặt hàng (Checkout & Create Order)
+    // 7. Tạo Đơn hàng
     createOrder: function (orderPayload) {
       if (!appState.cart.items || appState.cart.items.length === 0) {
         return { success: false, message: "Giỏ hàng của bạn đang trống" };
@@ -290,29 +341,17 @@ const EcomStore = (function () {
       const discount = voucher ? Math.round(rawTotal * (voucher.discount_value || 0)) : 0;
       const discountedAmount = Math.max(0, rawTotal - discount);
 
-      // Tính phí vận chuyển theo khối lượng và khoảng cách
-      let totalWeightG = 0;
-      appState.cart.items.forEach(it => {
-        totalWeightG += (it.product_weight_g || 250) * it.quantity;
-      });
-
-      // Miễn phí vận chuyển nếu đơn > 5 triệu hoặc voucher FREESHIP hoặc thành viên DIAMOND
-      let shipFee = 35000;
-      if (rawTotal >= 5000000 || (voucher && voucher.free_shipping) || (customer && customer.customer_rank === "DIAMOND")) {
-        shipFee = 0;
-      }
-
+      let isFreeShip = (rawTotal >= 5000000) || (voucher && voucher.free_shipping) || (customer && customer.customer_rank === "DIAMOND");
+      let shipFee = isFreeShip ? 0 : 35000;
       const grandTotal = discountedAmount + shipFee;
 
-      // Phân bổ chi nhánh xuất kho tự động và trừ tồn kho ảo
       const orderItems = appState.cart.items.map((it, idx) => {
-        // Tìm chi nhánh gần nhất thuộc thành phố khách chọn có tồn kho
         const invList = this.getProductInventory(it.product_id, orderPayload.targetCity);
         const availableSub = invList.find(s => s.quantity >= it.quantity) || invList[0];
         const assignedSubId = availableSub ? availableSub.subsidiary_id : "SB001";
         const assignedSubName = availableSub ? availableSub.sub_name : "EcomFlow Flagship Nguyễn Huệ";
 
-        // Trừ tồn kho ảo trong sub_products
+        // Trừ kho ảo
         const spIdx = (appState.sub_products || []).findIndex(
           sp => sp.subsidiary_id === assignedSubId && sp.product_id === it.product_id
         );
@@ -325,6 +364,7 @@ const EcomStore = (function () {
           product_id: it.product_id,
           product_name: it.product_name,
           product_version: it.product_version,
+          color: it.color || "",
           product_photos_link: it.product_photos_link,
           subsidiary_id: assignedSubId,
           subsidiary_name: assignedSubName,
@@ -346,7 +386,7 @@ const EcomStore = (function () {
         customer_name: orderPayload.fullName || (customer ? customer.first_name + " " + customer.last_name : "Khách hàng"),
         phone_number: orderPayload.phone || (customer ? customer.phone_number : "0908123456"),
         employee_id: "EP141",
-        order_status: "PENDING", // Trạng thái ban đầu: PENDING
+        order_status: "PENDING",
         total_amount: discountedAmount,
         total_shipfee: shipFee,
         grand_total: grandTotal,
@@ -369,17 +409,13 @@ const EcomStore = (function () {
         }
       };
 
-      // Đưa đơn hàng mới lên đầu danh sách
       appState.orders.unshift(newOrder);
-
-      // Làm rỗng giỏ hàng
       this.clearCart();
-
       saveState(appState);
       return { success: true, order: newOrder };
     },
 
-    // 8. Tra cứu & Điều khiển trạng thái Đơn hàng (Demo Trình diễn)
+    // 8. Quản lý Đơn hàng
     getOrders: function () {
       return appState.orders || [];
     },
@@ -408,7 +444,7 @@ const EcomStore = (function () {
           order.payment.paid_at = nowStr;
         }
       } else {
-        return { success: false, message: "Đơn hàng đã ở trạng thái cuối cùng" };
+        return { success: false, message: "Đơn hàng đã ở trạng thái hoàn tất" };
       }
 
       saveState(appState);
@@ -426,7 +462,7 @@ const EcomStore = (function () {
       order.order_status = "CANCELLED";
       order.cancel_date = new Date().toISOString().replace("T", " ").substring(0, 19);
 
-      // Hoàn trả lại số lượng tồn kho ảo
+      // Hoàn trả tồn kho ảo
       order.items.forEach(it => {
         const spIdx = (appState.sub_products || []).findIndex(
           sp => sp.subsidiary_id === it.subsidiary_id && sp.product_id === it.product_id
@@ -440,7 +476,7 @@ const EcomStore = (function () {
       return { success: true, order: order };
     },
 
-    // 9. Quản lý Đánh giá & Phân tích Sắc thái NLP (Reviews)
+    // 9. Đánh giá & Sắc thái NLP
     getProductReviews: function (productId) {
       return (appState.reviews || []).filter(r => r.product_id === productId);
     },
@@ -452,7 +488,6 @@ const EcomStore = (function () {
       const customer = this.getCurrentCustomer();
       const numScore = parseFloat(score) || 5.0;
 
-      // Phân tích sắc thái tự động
       let sentiment = "Neutral";
       let isPos = false;
       let isNeu = false;
@@ -485,7 +520,7 @@ const EcomStore = (function () {
         review_score: numScore,
         review_sentiment: sentiment,
         review_title: title || "Đánh giá sản phẩm",
-        review_message: message || "Sản phẩm tốt, đóng gói cẩn thận.",
+        review_message: message || "Sản phẩm dùng rất tốt, đóng gói cẩn thận.",
         created_at: nowStr,
         replied_at: null,
         reply_content: null,
@@ -498,7 +533,6 @@ const EcomStore = (function () {
 
       appState.reviews.unshift(newReview);
 
-      // Cập nhật điểm trung bình trong product_scores và product
       const allProductReviews = appState.reviews.filter(r => r.product_id === productId);
       const totalScore = allProductReviews.reduce((acc, r) => acc + r.review_score, 0);
       const newAvg = parseFloat((totalScore / allProductReviews.length).toFixed(1));
@@ -518,7 +552,7 @@ const EcomStore = (function () {
   };
 })();
 
-// Export cho môi trường Browser và Node.js
+// Export
 if (typeof window !== "undefined") {
   window.EcomStore = EcomStore;
 }
